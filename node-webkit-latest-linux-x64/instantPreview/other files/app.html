@@ -1,0 +1,93 @@
+<!--Implement getFunctionInformation in stuff.js before resuming this project.-->
+<html>
+<head>
+<title>Hello World!</title>
+</head>
+<body>
+<h1 onmouseover = "singSongWithLoopingNotes('Look at me I can sing I can sing it is great! Can you sing like me? Can you sing at all?', 'F#4 C4 A4 B4');">Hello World!</h1>
+<b onmouseover = "exec('espeak We')">We</b> <b onmouseover = "exec('espeak are')">are</b> <b onmouseover = "exec('google-chrome http://www.google.com/')">using</b> <b onmouseover = "exec('espeak node.js')">node.js</b> <script>document.write(process.version)</script>
+<br />
+The command-line arguments are <script>document.write(process.argv)</script>.
+<script>
+//var gui = require('nw.gui');
+//gui.Shell.openItem('firefox', ,function(error, stdout, stderr) { });
+//function npmls(cb) {
+//  require('child_process').exec('npm ls --json', function(err, stdout, stderr) {
+//    if (err) return cb(err)
+//    cb(null, JSON.parse(stdout));
+//  });
+//}
+console.log("Duuuh!");
+//npmls(alert);
+var sys = require('sys')
+var exec = require('child_process').exec;
+function puts(error, stdout, stderr) { document.body.innerHTML += "<br />" + (stdout) }
+//exec("ls -la", puts);
+
+//var exec1 = require('child_process').exec;
+function execStuff(){
+	//alert("You entered: " + document.getElementById('theAction').value);
+	//exec(document.getElementById('theAction').value);
+	exec((document.getElementById('theAction').value), function (error, username) {
+	var temp = document.getElementById('theAction').value;
+	document.body.innerHTML += (username);
+	document.getElementById('theAction').value = temp;
+	});
+}
+
+function execStuff2(theCommand){
+	//alert("You entered: " + document.getElementById('theAction').value);
+	//exec(document.getElementById('theAction').value);
+	exec(theCommand, function (error, username) {
+		//document.body.innerHTML += "<img src = '" + username + "'> </img>";
+		exec("xdg-open " + username);
+	});
+}
+
+function getSpeakText(theWord){
+	document.body.innerHTML += "<b onmouseover = \"speakText('"+theWord+"')\">"+theWord+"</b>";
+}
+
+function speakText(text){
+	exec("espeak '"+text+"'");
+}
+
+function addTheWords(theWords){
+	var theSplit = theWords.split(" ");
+	for(var i = 0; i < theSplit.length; i++){
+		getSpeakText(theSplit[i]);
+		document.body.innerHTML += " ";
+	}
+}
+
+function speakCommandBox(){
+	speakText(document.getElementById("stheAction").value);
+}
+
+//document.getElementById("randomStuff") = "Random stuff."
+
+addTheWords("Mouse over these words, and you will hear them being spoken individually.");
+</script>
+
+<script src = "/home/anderson/Desktop/AeroFS/nodejs_examples/javatest/stuff.js"></script>
+<button onclick = "exec('geany'); alert(f());">Click here to open Geany!</button>
+<button onmouseover = "exec('espeak click this')" onclick = "exec('minecraft')">Click here to open Minecraft!</button>
+<br />
+<div>
+Command to run: <input type="text" name="FirstName" id = "theAction" value="geany" onmouseover = "speakCommandBox()" onmouseout = "speakCommandBox()"><br>
+<input type="submit" value="Start it!" onclick="execStuff()">
+</form>
+</div>
+<button onclick = "exec('zenity --file-selection')">
+	Select a file to open...
+</button>
+
+<button onclick = "eval(exec('./app.nw'))">
+	Click here to open the context menu!
+</button>
+
+<p id = "randomStuff">
+</p>
+
+</body>
+</html>

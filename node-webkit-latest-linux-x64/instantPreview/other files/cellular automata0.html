@@ -1,0 +1,119 @@
+<canvas id="canvas1" width="200", height="200">Canvas 5</canvas>
+
+
+<script type="text/javascript">
+
+function setPixel(imageData, x, y, r, g, b, a) {
+	index = (x + y * imageData.width) * 4;
+	imageData.data[index+0] = r;
+	imageData.data[index+1] = g;
+	imageData.data[index+2] = b;
+	imageData.data[index+3] = a;
+}
+
+element = document.getElementById("canvas1");
+c = element.getContext("2d");
+
+// read the width and height of the canvas
+width = parseInt(element.getAttribute("width"));
+height = parseInt(element.getAttribute("height"));
+
+// create a new pixel array
+imageData = c.createImageData(width, height);
+
+drawStuff();
+
+setInterval(drawStuff,100);  
+
+var arr1 = new Array();
+
+//requires setPixel
+function drawStuff(){
+	function magnifyArray(){
+	
+	}
+	function replaceRandom(a, b){
+		
+	}
+	// draw random dots
+	var arr2 = new Array();
+	for(i = 0; i < width; i++){
+		arr2[i] = new Array();
+	}
+	arr2[10][10] = "black";
+	for (i = 0; i < width; i++) {
+		rand = parseInt(Math.random()*20);
+		for(j = 0; j < height; j++){
+			r = 255;
+			g = 255;
+			b = 255;
+			
+			
+			if(nextTo("black")){
+				arr2[i][j] = "yellow";
+			}
+			if(nextTo("yellow")){
+				arr2[i+parseInt(Math.random()*2)][j] = "green";
+			}
+			if(nextTo("green")){
+				arr2[i][j+1] = "black";
+			}
+			
+			if(arr2[i][j] == "black"){
+				r = 0;
+				g = 0;
+				b = 0;
+			}
+			if(arr2[i][j] == "yellow"){
+				r = 255;
+				g = 255;
+				b = 0;
+			}
+			if(arr2[i][j] == "green"){
+				r = 0;
+				g = 255;
+				b = 0;
+			}
+			if(arr2[i][j] == "red"){
+				r = 255;
+				g = 0;
+				b = 0;
+			}
+
+			
+			function nextTo(str){
+				if(i - 1 == -1 ||i + 1 == width ||j - 1 == -1 ||j + 1 == height){
+					return false;
+				}
+				if((arr2[i][j-1] == str)||(arr2[i][j+1] == str)||(arr2[i+1][j] == str)||(arr2[i-1][j] == str)){
+					return true;
+				}
+				else{
+					return false;
+				}
+			}
+			if((r == 255)&&(g == 255)&&(b == 255)){
+			arr2[i][j] = "white";
+			}
+			x = parseInt(i);
+			y = parseInt(j);
+			//r = parseInt(Math.tan(j+Math.random())*255);
+			//g = 255;
+			//b = 255;
+			setPixel(imageData, x, y, r, g, b, 0xff); // 0xff opaque
+		}
+	
+	}
+	
+	// copy the image data back onto the canvas
+	c.putImageData(imageData, 0, 0); // at coords 0,0
+}
+
+
+
+</script>
+<html>
+<body>
+	   
+</body>
+</html>

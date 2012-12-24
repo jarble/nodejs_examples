@@ -1,0 +1,12 @@
+-main Test
+
+-lib nodejs
+-D nodejs
+-js haxenode.js
+
+-cmd node haxenode.js
+
+--next
+
+-main Test
+-java java

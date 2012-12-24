@@ -1,0 +1,13 @@
+<html>
+<body onload = "doStuff()">
+<canvas></canvas>
+<script src="zlib.js"></script>
+<script src="png.js"></script>
+<script>
+	function doStuff(){
+		var canvas = document.getElementsByTagName('canvas')[0];
+		PNG.load('https://www.google.com/images/srpr/logo3w.png', canvas);
+	}
+</script>
+</body>
+</html>

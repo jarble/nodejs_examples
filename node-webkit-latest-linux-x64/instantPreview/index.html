@@ -1,0 +1,191 @@
+<html>
+    
+    <head>
+        <script src="http://code.jquery.com/jquery-1.8.3.js"></script>
+        <script src="http://code.jquery.com/ui/1.9.2/jquery-ui.js"></script>
+        <script type="text/javascript">
+            //alert(document.getElementById("canvas1").innerHTML);
+            require("typescript-require");
+            var typeScriptClasses = require("/home/anderson/Desktop/AeroFS/nodejs_examples/node-webkit-latest-linux-x64/instantPreview/typescriptClasses.ts");
+            typeScriptClasses.doStuff();
+            main();
+			
+			function main() {
+                $(function () {
+					canvasMouseMove('#canvas1', '#status');
+					handleKeyboardShortcuts();
+
+                    var arr1 = new Array();
+
+                    for (var i = 0; i < 200; i++) {
+                        arr1[i] = new Array();
+                        for (var j = 0; j < 200; j++) {
+                            //arr1[i][j] = new Array();
+                            arr1[i][j] = [255, 0, 0];
+                            if ((i * j) % 51 == 0) {
+                                arr1[i][j] = [0, 0, 0];
+                            }
+                        }
+                    }
+                    printToCanvas(arr1, "canvas1");
+                });
+            }
+			
+			//display the color and mouse position when the mouse is moved over the canvas
+			function canvasMouseMove(canvasSelector, statusSelector){
+				                    $(canvasSelector).mousemove(function (e) {
+                        //alert("Woo!");
+                        var pos = findPos(this);
+                        var x = e.pageX - pos.x;
+                        var y = e.pageY - pos.y;
+                        var coord = "x=" + x + ", y=" + y;
+                        var c = this.getContext('2d');
+                        var p = c.getImageData(x, y, 1, 1).data;
+                        var hex = p[0] + "," + p[1] + "," + p[2];
+                        $(statusSelector).html(coord + "<br>" + hex);
+                    });
+			}
+			
+			function handleKeyboardShortcuts(){
+				                    var keys = [];
+                    //document.body.innerHTML = "Keys currently pressed: "
+                    window.addEventListener("keydown",
+
+                    function (e) {
+                        keys[e.keyCode] = e.keyCode;
+                        var keysArray = getNumberArray(keys);
+                        console.log(keysArray);
+                        //document.body.innerHTML = "Keys currently pressed:" + keysArray;
+                        if (keysArray.toString() == "17,65") {
+                            console.log("Select all!");
+                        }
+                    },
+                    false);
+
+                    window.addEventListener('keyup',
+
+                    function (e) {
+                        keys[e.keyCode] = false;
+                        //document.body.innerHTML = "Keys currently pressed: " + getNumberArray(keys);
+                    },
+                    false);
+			}
+
+            function getNumberArray(arr) {
+                var newArr = new Array();
+                for (var i = 0; i < arr.length; i++) {
+                    if (typeof arr[i] == "number") {
+                        newArr[newArr.length] = arr[i];
+                    }
+                }
+                return newArr;
+            }
+
+            var functionChecker = require("functionChecker.js");
+            var str = window.location.toString();
+            str = str.substring(7, str.length);
+            //alert(str);
+            functionChecker.checkAllFunctions(str);
+
+
+
+            //function name: saveObjectToFile
+            //requires functions: false
+            //is defined: false
+            //description: Save the Javascript object to the specified JSON file.
+            function saveObjectToFile(object, file){
+				
+			}
+
+            //function name: findPos
+            //requires functions: false
+            //is defined: true
+            //description: Find the position of the object.
+
+            function findPos(obj) {
+                var curleft = 0,
+                    curtop = 0;
+                if (obj.offsetParent) {
+                    do {
+                        curleft += obj.offsetLeft;
+                        curtop += obj.offsetTop;
+                    } while (obj = obj.offsetParent);
+                    return {
+                        x: curleft,
+                        y: curtop
+                    };
+                }
+                return undefined;
+            }
+
+            //function name: loadObjectFromFile
+            //requires functions: saveObjectToFile
+            //is defined: false
+            //description: Return the Javascript object from the specified JSON file.
+
+            //function name: printToCanvas
+            //requires functions: false
+            //is defined: true
+            //description: Print a 2D array to canvas.
+            function printToCanvas(arr1, canvasId) {
+                var c = document.getElementById(canvasId);
+                //alert(c.height + ' ' + c.width);
+                c.width = arr1.length;
+                c.height = arr1[0].length;
+                //alert(c.height + ' ' + c.width);    
+
+                var ctx = document.getElementById(canvasId).getContext("2d");
+                var h = ctx.canvas.height;
+                var w = ctx.canvas.width;
+                //alert(h + ", " + w);
+                var imgData = ctx.getImageData(0, 0, w, h);
+                var data = imgData.data;
+                var height = arr1.length;
+                var width = arr1[0].length;
+
+                for (var i = 0; i < height; i++) {
+                    for (var j = 0; j < width; j++) {
+                        var s = 4 * i * w + 4 * j;
+                        var x = arr1[i][j];
+                        data[s] = x[0];
+                        data[s + 1] = x[1];
+                        data[s + 2] = x[2];
+                        data[s + 3] = 255;
+                    }
+                }
+
+                ctx.putImageData(imgData, 0, 0);
+
+            }
+
+            //function name: printImageToCanvas
+            //requires functions: printToCanvas
+            //is defined: false
+            //Print an image to the canvas, given the image name.
+
+            //function name: get2DImageArray
+            //requires functions: get1DImageArray
+            //is defined: false
+            //description: Convert the 1D array of image data to a 2D array.
+
+            //function name: get1DImageArray
+            //requires functions: false
+            //is defined: false
+            //description: Get the 1D image array from an image using png-js.
+            function get1DImageArray(thePNG, thingToReturn, callback) {
+                var PNG = require('png-js');
+                PNG.decode(thePNG, function (pixels) {
+                    // pixels is a 1d array of decoded pixel data
+                });
+            }
+        </script>
+        <script type="text/javascript" src="https://raw.github.com/niutech/typescript-compile/gh-pages/js/typescript.min.js"></script>
+        <script type="text/javascript" src="https://raw.github.com/niutech/typescript-compile/gh-pages/js/typescript.compile.min.js"></script>
+    </head>
+    
+    <body>
+        <canvas id="canvas1" height="5" width="50"></canvas>
+        <div id="status"></div>
+    </body>
+
+</html>

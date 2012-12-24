@@ -1,0 +1,1 @@
+./nw instantPreview --no-toolbar

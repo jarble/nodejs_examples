@@ -1,0 +1,15 @@
+<html>
+<head>
+<script type = "text/javascript">
+	function singSong(){
+		alert(document.getElementById("words").value);
+		alert(document.getElementById("notes").value);
+		//singSongWithLoopingNotes(document.getElementById("words").value, document.getElementById("notes").value);
+	}
+</script>
+<script src = "/home/anderson/Desktop/AeroFS/nodejs_examples/javatest/stuff.js"></script>
+</head>
+<body>
+	Words: <input type = "text" id = "words"></input> Notes: <input type = "text" id = "notes"></input> <button onclick = "singSong()">play song</button>
+</body>
+</html>

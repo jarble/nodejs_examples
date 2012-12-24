@@ -1,0 +1,12 @@
+<html>
+	<body>
+		<script type = "text/javascript">
+		    var fs = require('fs'),
+			sys = require('sys');
+			var file = '/home/anderson/Desktop/fractal.png';
+			fs.watchFile(file, function(curr, prev) {
+				alert("File was modified.");
+			});     
+		</script>
+	</body>
+</html>

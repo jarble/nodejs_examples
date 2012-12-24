@@ -1,0 +1,121 @@
+<!-- use functionChecker.js here -->
+
+<!DOCTYPE html>
+<!-- saved from url=(0031)http://htmledit.squarefree.com/ -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<title>Real-time HTML Editor</title>
+<script type="text/javascript">
+
+
+//document.body.innerHTML = (window.location);
+
+//function name: copyArrayToCanvas
+//requires functions: 
+function copyArrayToCanvas(arr1, canvasId){
+var ctx = document.getElementById(canvasId).getContext("2d");
+var h = ctx.canvas.height;
+var w = ctx.canvas.width;
+var imgData = ctx.getImageData(0, 0, w, h);
+var data = imgData.data;
+var height = arr1.length;
+var width = arr1[0].length;
+
+for(var i = 0; i < height; i++) {
+    for(var j = 0; j < width; j++) {
+        var s = 4 * i * h + 4 * j;
+        var x = arr1[i][j];
+        data[s] = x[0];
+        data[s + 1] = x[1];
+        data[s + 2] = x[2];
+        data[s + 3] = 255;
+    }
+}
+
+ctx.putImageData(imgData, 0, 0);
+
+}
+
+//function name: saveText
+//requires functions: false
+//is defined: true
+//description: Save the text to a file.
+function saveText(fileName, text){
+	
+}
+
+//function name: getText
+//requires functions: false
+//is defined: false
+//description: Get the text from a file.
+function getText(fileName){
+	// Read the file and print its contents.
+var fs = require('fs')
+  , filename = process.argv[2];
+fs.readFile(filename, 'utf8', function(err, data) {
+  if (err) throw err;
+  console.log('OK: ' + filename);
+  console.log(data)
+});
+}
+
+var editboxHTML = 
+'<html class="expand close">' +
+'<head>' +
+'<style type="text/css">' +
+'.expand { width: 100%; height: 100%; }' +
+'.close { border: none; margin: 0px; padding: 0px; }' +
+'html,body { overflow: hidden; }' +
+'<\/style>' +
+'<\/head>' +
+'<body class="expand close" onload="document.f.ta.focus(); document.f.ta.select();">' +
+'<form class="expand close" name="f">' +
+'<textarea class="expand close" style="background: #def;" name="ta" wrap="hard" spellcheck="false">' +
+'<\/textarea>' +
+'<\/form>' +
+'<\/body>' +
+'<\/html>';
+
+var defaultStuff = '<h3>Welcome to the real-time HTML editor!<\/h3>\n' +
+'<p>Type HTML in the textarea above, and it will magically appear in the frame below.<\/p>';
+
+// I don't want this stuff to appear in the box at the top because I feel it's likely to be distracting.
+var extraStuff = '<div style="position:absolute; margin:.3em; bottom:0em; right:0em;"><small>\n  Created by <a href="http://www.squarefree.com/" target="_top">Jesse Ruderman<\/a> and hosted by <a href="http://www.dreamhost.com/rewards.cgi?jesseruderman" target="_top">DreamHost<\/a>.\n<\/small><\/div>';
+
+var old = '';
+         
+function init()
+{
+  window.editbox.document.write(editboxHTML);
+  window.editbox.document.close();
+  window.editbox.document.f.ta.value = defaultStuff;
+  update();
+}
+
+function update()
+{
+  var textarea = window.editbox.document.f.ta;
+  var d = dynamicframe.document; 
+
+  if (old != textarea.value) {
+    old = textarea.value;
+    d.open();
+    d.write(old);
+    if (old.replace(/[\r\n]/g,'') == defaultStuff.replace(/[\r\n]/g,''))
+      d.write(extraStuff);
+    d.close();
+  }
+
+  window.setTimeout(update, 150);
+}
+
+</script>
+<style type="text/css"></style></head>
+
+<frameset resizable="yes" rows="50%,*" onload="init();"><div id="StayFocusd-infobar" style="display:none;"><img src="chrome-extension://laankejkbhbdhmipfmgcngdelahlfoji/img/eye_19x19_red.png"><span id="StayFocusd-infobar-msg"></span><span id="StayFocusd-infobar-links"><a href="http://htmledit.squarefree.com/#" id="StayFocusd-infobar-never-show">hide forever</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a href="http://htmledit.squarefree.com/#" id="StayFocusd-infobar-hide">hide once</a></span></div>
+  <!-- about:blank confuses opera, so use javascript: URLs instead -->
+  <frame name="editbox" src="javascript:'';">
+  <frame name="dynamicframe" src="javascript:'';">
+</frameset>
+
+
+</html>

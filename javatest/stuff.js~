@@ -1,0 +1,3041 @@
+//it might be possible to re-write this in Haxe (so that redundant code won't need to be written.)
+//Search for haxe command line arguments on Google.
+
+
+
+
+//invokeCommandLine("geany stuff.rb");
+//invokeCommandLine("geany stuff2.js");
+//invokeCommandLine("geany Stuff.java");
+//invokeCommandLine("eclipse Stuff.java");
+//invokeCommandLine("geany stuff2.js");
+//invokeCommandLine("geany stuff.py")
+//module.exports = {
+	//generateRandomString: generateRandomString
+	//invokeCommandLine
+	//singRandomSong: singRandomSong
+//};
+
+//move the javascript interfaces script to this file, and replace document.write with writeMessage
+//http: //stackoverflow.com/questions/11818833/determine-whether-the-current-javascript-implementation-is-rhino/11819015#comment15710740_11819015
+
+function f() {
+    return "Teehee!";
+}
+
+//invokeCommandLine("sudo apt-get install skype");
+
+
+
+function startServer() {
+    invokeCommandLine("google-chrome http://localhost:8080");
+    var fs = require('fs');
+    var server = require('http').createServer(function (req, response) {
+        fs.readFile('helloworld.html', function (err, data) {
+            response.writeHead(200, {
+                'Content-Type': 'text/html'
+            });
+            response.write(data);
+            response.end();
+        });
+    });
+    server.listen(8080);
+    var everyone = require("now").initialize(server);
+
+
+    everyone.connected(function () {
+        console.log("Joined: " + this.now.name);
+    });
+
+
+    everyone.disconnected(function () {
+        console.log("Left: " + this.now.name);
+    });
+
+    everyone.now.distributeMessage = function (message) {
+        everyone.now.receiveMessage(this.now.name, message);
+    };
+
+}
+//startServer();
+
+function writeMessage(message) { //fix this so that it works with node.js
+    //find out how to check whether a variable is defined; this doesn't work in Java
+    if (((typeof document) != "undefined") && ((typeof document.write) != "undefined")) { // running in a web browser
+        console.log(message);
+    } else if (typeof process !== 'undefined' && process && process.versions && process.versions.node) {
+        //console.log('node version:', process.version);
+        console.log(message); //then it's node
+    } else { // it will be Rhino
+        print(message);
+    }
+}
+
+var functionsList = new Array();
+
+var s;
+
+var arrayOfVars = [];
+
+addFunction(setVar);
+s.isDefined = true;
+
+function setVar(variable, regex) {
+    arrayOfVars[arrayOfVars.length] = [variable, regex];
+}
+
+
+var dah = "Teehee!";
+setVar(setVar, /(define|set|make|create)(Object|Var(iable|))/);
+setVar(enlarge1DArray, /(magnify|enlarge)(|1D)Array/);
+setVar(enlarge2DArray, /(magnify|enlarge)(|2D)Array/);
+setVar(oneOfEachType, /one(| )(O|o)f(| )(All|Every|Each)(| )(T|t)ype(s|)/)
+setVar(getAllImplementedFunctions, /(return|get)(All|)(Defined|Implemented|Written|Usable|Finished|Completed)(Functions|Methods)/)
+setVar(callFunctionWithNamedArgs, /(f|(call|invoke)(Method|Function))(|WithNamedArg(|ument)s)/);
+setVar(getAllFunctions, /(get|find|return|produce)(All|Every|Each)(Method|Function)(s|)/)
+setVar(getFunctionName, /(get|return)((m|M)ethod|Function)Name/)
+setVar(replaceWithRandomFromRegexes, /(replaceWithRandomFromRegexes|paraphrase)/);
+setVar(getRandomStringFromNestedParentheses, /(get|generate|make|produce)Random((Text|String|Word|Sentence)(s|))(|FromNestedParentheses)/)
+setVar(stringsMatchRegexesInAnyOrder, /((s|S)trings|(r|R)egexes)(Match)(Strings|Regexes)(|InAnyOrder)/);
+//setVar(stringsMatchRegexesInSameOrder, /((s|S)trings|(r|R)egexes)(Match)(Strings|Regexes)(|InSameOrder)/);
+setVar(functionSignature, /(|get|return|produce|generate)((F|f)unction|(M|m)ethod)(Signature|Header)/);
+setVar(getRequiringFunctions, /getRequiring(Method|Function)s/);
+setVar(getRequiredFunctions, /(get|return|obtain)(Required|Needed|Necessary|Prerequisite)(Method|Function)s/);
+setVar(get1DSubArray, /(get|return|obtain)(|1D)(Sub)((A|a)rr(ay|))/)
+setVar(get1DSubArray, /(get|return|obtain)(|2D)(Sub)((A|a)rr(ay|))/)
+setVar(replaceArray, /replace(The|)Arr(ay|)(InTheArrayWithTheArray|)/);
+setVar(getDate, /(get|return|obtain)(Time|Date|Day|Hour|Year)/);
+
+
+function setVariable() {
+
+}
+addFunction(setVariable);
+
+//console.log(getVar("setVariable"));
+
+//alert("All usable functions:" + getVar("getEveryFunction"));
+
+//setVar(1, /(get|return|obtain)(Time|Date|Day|Hour|Year)/);
+//setVar(1, /(get|return|obtain)(Time|Date|Day|Hour|Year)/);
+//setVar(1, /(get|return|obtain)(Time|Date|Day|Hour|Year)/);
+
+//alert(getVar("replaceTheArr"));
+
+//alert(callFunctionWithNamedArgs(["stringh", "d", "matches regex", /d/]));
+
+//alert(getVar("getTime")());
+//alert(f(["The regular expressions:", ["d"], "Match the string:", "d"]));
+//alert(f("Get the function's name:", getAllFunctions));
+//use this function in addFunction (as soon as it is finished)
+
+addFunction(singRandomSong);
+//Description: undefined
+//It requires the functions:
+// generateRandomSong(theString, notes, durations, bpm)
+//undefined
+// generateFile(fileName, fileText)
+//undefined
+// invokeCommandLine(commandToInvoke)
+//undefined
+s.requiresTheFunctions = [generateRandomSong, generateFile, invokeCommandLine, speakTheText];
+s.isDefined = true;
+
+function singRandomSong(theString, notes, durations, bpm) {
+    var randomSongText = generateRandomSong(theString, notes, durations, bpm);
+    generateFile("song.xml", randomSongText);
+    invokeCommandLine("echo \"(tts \\\"song.xml\\\" 'singing)\" | festival");
+}
+//singRandomSong("(gah|ha) (bah|ha) ha", "(B3 B3|A3 F3) A3", "0.1 0.1 0.1", 30);
+
+addFunction(getLoopingNotes);
+s.requiresTheFunctions = [getWrappingNumber];
+s.description = "Get the looping notes that correspond to the string."
+function getLoopingNotes(theString, notes){
+	theString = generateRandomString(theString);
+	notes = generateRandomString(notes);
+    var loopedNotes = "";
+    var stringArray = theString.split(" ");
+    var notesArray = notes.split(" ");
+    if (notesArray.length < stringArray.length) {
+		//singSong(getWrappingNumber(6, 1, 4)+"", "D3");
+		//singSong(notesArray.length+"", "D3");
+		var notesString = notesArray[0];
+		for(var i = 1; i < stringArray.length; i++){
+			var wrappingNumber = getWrappingNumber(i, 0, notesArray.length-1);
+			notesString += " " + notesArray[wrappingNumber];
+			//console.log(notesArray[wrappingNumber]);
+		}
+		//console.log("NotesString: " + notesString);
+		//singSong(theString, notesString);
+		return notesString;
+    }
+    else if(notesArray.length == stringArray.length){
+		return notes;
+	}
+}
+
+addFunction(singSongWithLoopingNotes);
+s.requiresTheFunctions = [singSong, getLoopingNotes];
+//s.requiresTheFunctions = false;
+s.description = "If the number of notes is less than the number of words in the string, loop the notes.";
+s.isDefined = false;
+//Description: If the number of notes is less than the number of words in the string, loop the notes.
+ //It requires the functions:
+
+// singSong(theString, notes) 
+//undefined
+// getWrappingNumber(number, minimum, maximum) 
+//undefined
+
+function singSongWithLoopingNotes(theString, notes, callback) {
+	//singSong(theString, notes);
+    theString = generateRandomString(theString);
+    var loopedNotes = "";
+    var stringArray = theString.split(" ");
+    var notesArray = notes.split(" ");
+    if (notesArray.length <= stringArray.length) {
+		singSong(theString, getLoopingNotes(theString, notes))
+    }
+	else{
+		singSong("Too man nee notes!", "D3 D4 D3 D5");
+	}
+	if(typeof callback != "undefined"){
+		callback();
+	}
+}
+
+//singSongWithLoopingNotes("Look at me I can sing I can sing it is great! Can you sing like me? Can you sing at all?", "F#4 C4 A4 B4")
+
+var async = require("async");
+
+async.series([
+function(theCallback){
+	//singSongWithLoopingNotes("in tur change ing rows and col ums, Switch es the sign of the de tur meh nant,", "F#4 C4 A4 C4 F#4 C5", theCallback)
+},
+]);
+
+//(copyStringsBeforeSemicolons("det ur mah nent; of tri ang gul lar mate rix; is prod duct; of main die ah gon all; in tur change ing; rows and col ums; Switch es the sign; of the de tur meh nant; what is a co fac tor; it is a signed my nor; what is a my nor; it has the rows and call ums ree moved"), "(B5|C5|C4|D3) (D5|C4) (D3|D3 D4 D3)")
+//singSongWithLoopingNotes("Dah dah dah", "C5 C5 C5 C5")
+
+//"in tur change rows cols, in tur change rows cols"
+
+addFunction(getSoundFileFromXML);
+s.requiresTheFunctions = [getTextFromFile];
+
+function getSoundFileFromXML(fileName) {
+
+}
+
+addFunction(getLineArrayFromFile);
+s.requiresTheFunctions = false;
+s.isDefined = true;
+s.description = "Get an array of lines from the file.";
+function getLineArrayFromFile(filename){
+	var fs = require('fs');
+	var array = fs.readFileSync(filename).toString().split("\n");
+	return array;
+}
+
+addFunction(getTextFromFile);
+s.requiresTheFunctions = [getLineArrayFromFile];
+s.description = "Implement this function so that getFunctionInformation can be implemented";
+s.isDefined = true;
+function getTextFromFile(fileName){
+	var fs = require('fs');
+	return fs.readFileSync(fileName).toString();
+}
+
+addFunction(singSong);
+s.requiresTheFunctions = [singRandomSong, getNextNote];
+s.isDefined = true;
+function singSong(theString, notes) {
+    var numNotes = theString.split(" ").length;
+    var theDurations = "0.3";
+    for (var i = 1; i < numNotes; i++) {
+        theDurations += " 0.3";
+    }
+    var randomSongText = generateRandomSong(theString, notes, theDurations, 60);
+    //for(var i = 0; i < 5; i++){
+    //	randomSongText += generateRandomSong(theString, notes, durations, bpm);
+    //}
+    generateFile("song.xml", randomSongText);
+    invokeCommandLine("echo \"(tts \\\"song.xml\\\" 'singing)\" | festival");
+}
+//singSong("(Goo|Doh) (re|rah) (mi|shee)", "D4 (D3|D4) D4")
+
+addFunction(getNumber);
+s.requiresTheFunctions = false;
+s.description = "Get the number (not wrapping) that corresponds to the letter. It starts at zero.";
+function getNumber(){
+	
+}
+
+addFunction(getLetter);
+s.requiresTheFunctions = false;
+s.description = "Get the letter that corresponds to the number (not wrapping). It starts at zero.";
+function getLetter(){
+	
+}
+
+addFunction(getNextLetter);
+s.requiresTheFunctions = [getNumber, getLetter];
+s.description = "Get the next musical letter in the series, based on the festival singing synthesis example.";
+function getNextLetter(){
+	
+}
+
+addFunction(getNextNote);
+s.requiresTheFunctions = [getNextLetter];
+s.description = "Get the next musical note in the series."
+function getNextNote(theNote) {
+
+}
+
+//speakTheText("Hahaha")
+
+addFunction(speakTheText);
+s.isDefined = true;
+s.requiresTheFunctions = false;
+
+function speakTheText(theText) {
+    invokeCommandLine("echo \"" + theText + "\" | espeak");
+}
+
+
+addFunction(generateFile);
+s.requiresTheFunctions = false;
+s.isDefined = true;
+
+function generateFile(fileName, fileText) {
+    var fs = require('fs');
+    fs.writeFile(fileName, fileText, function (err) {
+        if (err) {
+            console.log(err);
+        }
+    });
+}
+//generateFile("stoopidness.xml", "Herpa derpa derp!")
+
+addFunction(invokeCommandLine);
+s.requiresTheFunctions = false;
+s.isDefined = true;
+s.description = "Invoke commandToInvoke in the command line."
+
+function invokeCommandLine(commandToInvoke) {
+    var sys = require('sys')
+    var exec = require('child_process').exec;
+
+    function puts(error, stdout, stderr) {
+        sys.puts(stdout)
+    }
+    exec(commandToInvoke, puts);
+}
+//invokeCommandLine("firefox http://www.google.com");
+//invokeCommandLine("google-chrome http://www.google.com");
+
+
+addFunction(removeDuplicates);
+s.requiresTheFunctions = false;
+s.isDefined = true;
+s.description = "Remove duplicate elements from the array."
+
+function removeDuplicates(origArr) {
+    var newArr = [],
+        origLen = origArr.length,
+        found,
+        x, y;
+
+    for (x = 0; x < origLen; x++) {
+        found = undefined;
+        for (y = 0; y < newArr.length; y++) {
+            if (origArr[x] === newArr[y]) {
+                found = true;
+                break;
+            }
+        }
+        if (!found) newArr.push(origArr[x]);
+    }
+    return newArr;
+}
+
+addFunction(setPixel);
+s.requiresTheFunctions = false;
+s.isDefined = true;
+
+function setPixel(imageData, x, y, r, g, b, a) {
+    index = (x + y * imageData.width) * 4;
+    imageData.data[index + 0] = r;
+    imageData.data[index + 1] = g;
+    imageData.data[index + 2] = b;
+    imageData.data[index + 3] = a;
+}
+
+addFunction(printArrayOnCanvas);
+s.requiresTheFunctions = [setPixel];
+//refer to cellular automata 2.html
+function printArrayOnCanvas(canvas, array) {
+
+}
+
+
+addFunction(getTopLevelFunctions);
+s.requiresTheFunctions = [getRequiringFunctions, getAllFunctions];
+s.description = "Get the top-level functions for every function."
+
+function getTopLevelFunctions() {
+
+}
+
+addFunction(getRequiredFunctionsForMultipleFunctions);
+s.requiresTheFunctions = [removeDuplicates, functionNameIsValid];
+s.description = "Get all the required functions for a group of functions, without repeating them";
+// removeDuplicates(origArr) : Remove duplicate elements from the array.
+function getRequiredFunctionsForMultipleFunctions(theFunctions) {
+    //use a.concat(b) to concatenate the arrays a and b. This returns a new array.
+}
+
+
+addFunction(printAllNamedArguments);
+s.requiresTheFunctions = [getAllFunctions];
+s.description = "Print the named arguments, along with a function description, for every function where ExampleRegexMatches is defined."
+s.isDefined = true;
+
+function printAllNamedArguments() {
+    var allFunctions = getAllFunctions();
+    writeMessage(allFunctions.length);
+    var str = "\n";
+    for (var i = 0; i < allFunctions.length; i++) {
+        //alert(allFunctions[i]);
+        if (allFunctions[i].prototype.exampleRegexMatches != undefined) {
+            str += ("\n" + allFunctions[i].prototype.exampleRegexMatches[0] + "\n" + allFunctions[i].prototype.description + "\n");
+        }
+    }
+    return str;
+}
+
+addFunction(functionNameIsValid);
+s.requiresTheFunctions = [getFunctionName, getNumberOfRegexMatches, getTopLevelFunctions];
+s.description = "Return true if the function name matches less than 2 regexes in arrayOfVars[i][1]. If not true, print an error message."
+//s.exampleRegexMatches = ["Function name is valid:"];
+// getFunctionName(theFunction): Print the name of the function that is provided as a parameter.
+// getNumberOfRegexMatches(regexes, theString): undefined
+function functionNameIsValid(theFunction) {
+    var theRegexes = new Array();
+    for (var i = 0; i < arrayOfVars.length; i++) {
+        theRegexes[i] = arrayOfVars[i][1];
+    }
+    //alert(theRegexes);
+    var numberOfFunctionMatches = getNumberOfRegexMatches(theRegexes, getFunctionName(theFunction));
+    //alert(numberOfFunctionMatches);
+
+    if (numberOfFunctionMatches == 1) {
+        return true;
+    } else {
+        if (numberOfFunctionMatches == 0) {
+            alert("No regexes match the function " + getFunctionName(theFunction) + "!");
+        } else if (numberOfFunctionMatches > 1) {
+            alert("The function has a name that is already in use!");
+        }
+        return false;
+    }
+
+    //now get the functions that match each of the matching regexes
+}
+
+//functionNameIsValid(getDate);
+
+addFunction(getDate);
+s.isDefined = true;
+s.requiresTheFunctions = false;
+
+function getDate() {
+    return new Date();
+}
+
+
+//alert(getVar("getNeededMethods"));
+//alert(getVar("oneOfAllTypes"));
+//getVar("setVariable")(/reg(|ular)( |)(E|e)x(|p(|ression))/, /reg(|ular)( |)(E|e)x(|p(|ression))/);
+//getVar("setVariable")(getAllFunctions, /(get|obtain|return|find)(All|Every|Each)(Method|Function)(s|)/);
+//alert(getVar("regex"));
+//alert(getVar("teh"));
+//alert(getVar("returnEveryMethod")());
+//alert(getVar("magnify2DArray"));
+//alert(getVar("getAllMethods"));
+//alert(arrayOfVars[1])
+//alert(getVariableWithRegex(/dah/));
+//alert(getVar("getMethodName")(getVar("callMethod")));
+
+//alert(getVar("generateRandomSentence")("h(a|oo|ii)h(bugg|lugg)"));
+//alert(getVar("getAllMethods"));
+
+//alert(getVar("getRandomWord")("(gahs|ssads)"));
+
+addFunction(generateNote);
+s.isDefined = true;
+s.requiresTheFunctions = false;
+
+function generateNote(word, note, duration) {
+    return "<PITCH NOTE=\"" + note + "\"><DURATION BEATS=\"" + duration + "\">" + word + "</DURATION></PITCH>\n"
+}
+//alert(generateNote("I", "G3", 1));
+
+addFunction(generateRandomSong);
+// generateRandomString(nestedParentheses): undefined
+// generateSongFromString(theString, notes, durations, bpm): Enter each parameter as a string separated by spaces.
+s.requiresTheFunctions = [generateRandomString, generateSongFromString];
+s.description = "All of the parameters except the last parameter should be nested parentheses.";
+s.regexArray = [
+    ["Generate random song with the string:", "notes", "duration(s)", "(bpm|beats per minute)"]
+];
+s.isDefined = true;
+
+function generateRandomSong(theString, notes, durations, bpm) {
+    return generateSongFromString(generateRandomString(theString), generateRandomString(notes), generateRandomString(durations), bpm);
+}
+
+//alert(generateRandomSong("(Gah|Ha) (bah|ha) ha", "(6B 6B|6A 6A) 6A", "3 3 3", 2));
+
+addFunction(generateSongFromString);
+s.requiresTheFunctions = [generateNote];
+s.description = "Enter each parameter as a string separated by spaces."
+s.isDefined = true;
+// generateNote(word, note, duration): undefined
+function generateSongFromString(theString, notes, durations, bpm) {
+    //use theString.split(" ");
+    var theWords = theString.split(" ");
+    var theNotes = notes.split(" ");
+    var theString = "";
+    var theDurations = durations.split(" ");
+    for (var i = 0; i < theNotes.length; i++) {
+        theString += generateNote(theWords[i], theNotes[i], theDurations[i]);
+    }
+    return "<SINGING BPM = \"" + bpm + "\">" + theString + "</SINGING>";
+}
+//alert(generateSongFromString("La luh lah", "G3 G4 G5", "0.5 0.5 1", 60));
+
+addFunction(repeatParaphrase);
+s.isImplemented = true;
+s.description = "Write a random combination of nestedParenthesesString timesToRepeat times.";
+
+function repeatParaphrase(nestedParenthesesString, timesToRepeat) {
+    var str = "";
+    for (var i = 0; i < timesToRepeat + 1; i++) {
+        str += getVar("getRandomString")(nestedParenthesesString);
+    }
+    return str;
+}
+//document.write(repeatParaphrase("(A|The) (explanation|definition) of span: The span of a (set|collection|group) of vectors is the set of all (multiplied sum|linear combination)s of the vectors. ", 5))
+
+addFunction(multiplyColumn);
+s.requiresTheFunctions = false;
+s.isDefined = true;
+
+function multiplyColumn(arr, number) {
+    for (var i = 0; i < arr.length; i++) {
+        arr[i] *= number;
+    }
+    return arr;
+}
+
+addFunction(swapColumns);
+s.requiresTheFunctions = [functionNameIsValid];
+
+function swapColumns(arr, index1, index2) {
+    //find copy array function
+}
+
+addFunction(addColumns);
+s.description = "Add arr1 to arr2 and return the result.";
+s.requiresTheFunctions = false;
+
+function addColumns(arr1, arr2) {
+    var arr3 = new Array();
+    for (var i = 0; i < arr[index1].length; i++) {
+        //arr arr[index2][i]
+        //+= arr[index1][i];
+    }
+}
+
+addFunction(getRowEchelonForm);
+s.requiresTheFunctions = [swapColumns, multiplyColumn, addColumns]
+
+function getRowEchelonForm() {
+
+}
+
+addFunction(getReducedRowEchelonForm);
+s.requiresTheFunctions = [getRowEchelonForm];
+
+function getReducedRowEchelonForm() {
+
+}
+
+addFunction(linearAlgebraComputerProject1);
+s.requiresTheFunctions = [getReducedRowEchelonForm];
+
+function linearAlgebraComputerProject1() {
+
+}
+
+addFunction(getRequiredFunctions);
+s.isDefined = true;
+s.requiresTheFunctions = false;
+s.description = "For theFunction, return theFunction.prototype.requiresTheFunctions."
+
+function getRequiredFunctions(theFunction) {
+    return theFunction.prototype.requiresTheFunctions;
+}
+
+addFunction(getShortestStringFromArray);
+s.requiresTheFunctions = false;
+s.description = "Return the first shortest string from the array called theStrings.";
+s.isDefined = true;
+
+function getShortestStringFromArray(theStrings) {
+    var shortestString = theStrings[0];
+    for (var i = 0; i < theStrings.length; i++) {
+        if (theStrings[i].length < shortestString.length) {
+            shortestString = theStrings[i];
+        }
+    }
+    return shortestString;
+}
+//alert(getShortestStringFromArray(["ed", "ss", "ww", "a"]));
+
+addFunction(getLongestStringFromArray);
+s.requiresTheFunctions = false;
+s.description = "Return the longest string from the array called theStrings.";
+s.isDefined = true;
+
+function getLongestStringFromArray(theStrings) {
+    var longestString = theStrings[0];
+    for (var i = 0; i < theStrings.length; i++) {
+        if (theStrings[i].length > longestString.length) {
+            longestString = theStrings[i];
+        }
+    }
+    return longestString;
+}
+//alert(getLongestStringFromArray(["edsss", "sss", "ww", "a"]));
+
+addFunction(getShortestString);
+//this should be a modified version of getRandomStringFromNestedParentheses
+s.description = "Get the shortest possible string from nestedParentheses."
+s.isDefined = false;
+s.requiresTheFunctions = [getShortestStringFromArray, getTreeFromRegex];
+
+function getShortestString(nestedParentheses) {
+
+}
+
+addFunction(getLongestString);
+//this should be a modified version of getRandomStringFromNestedParentheses
+s.description = "Get the longest possible string from nestedParentheses."
+s.isDefined = false;
+s.requiresTheFunctions = [getLongestStringFromArray, getTreeFromRegex];
+
+function getLongestString(nestedParentheses) {
+
+}
+//alert(getVar("getRandomString"));
+
+//function getRandomStringFromNestedParentheses(theString){
+//	while(theString.indexOf("(") != -1){
+//		theString = replaceInFirstParentheses(theString);
+//	}
+//	return theString;
+//}
+
+//function replaceInFirstParentheses(theString){
+//find the index of the first parentheses
+//	var parenthesesIndex = theString.indexOf("(");
+//	var randomString = getRandomStringInsideParentheses(theString, parenthesesIndex);
+//	
+//	var stringToReplace = theString.substring(parenthesesIndex, getCorrespondingParenthesesIndex(theString, parenthesesIndex)+1);
+//	theString = theString.replace(stringToReplace, randomString);
+//	return theString;
+//}
+
+addFunction(getVariableWithRegex);
+s.description = "Return the variable in arrayOfVars that matches theRegex."
+s.isDefined = true;
+
+function getVariableWithRegex(theRegex) {
+    //this isn't working properly for some reason
+    for (var i = 0; i < arrayOfVars.length; i++) {
+        //alert(arrayOfVars[i][1])
+        if (arrayOfVars[i][1].toString() == (theRegex.toString())) {
+            return arrayOfVars[i][0];
+        }
+    }
+}
+
+addFunction(getVar);
+s.requiresTheFunctions = [stringsMatchRegexesInAnyOrder, stringMatchesRegex, getMatchingRegexes];
+s.description = "If only one variable in arrayOfVars matches stringMatchingRegex, return the variable."
+s.isDefined = true;
+// stringsMatchRegexesInAnyOrder(strings, regexes): Return true if (every string matches one regex) and (every regex matches one string), otherwise return false.
+// stringMatchesRegex(str, regex): Return true if the string matches the regex; return false otherwise.
+// getMatchingRegexes(theRegexes, theString): Get all the regexes in theRegexes that match theString
+function getVar(stringMatchingRegex) {
+    var theRegexes = new Array();
+    for (var i = 0; i < arrayOfVars.length; i++) {
+        theRegexes[theRegexes.length] = arrayOfVars[i][1];
+    }
+    //alert(theRegexes);
+    var matchingRegexes = getMatchingRegexes(theRegexes, stringMatchingRegex);
+    //alert(matchingRegexes);
+    if (matchingRegexes[0] != undefined) {
+        //alert(matchingRegexes);
+        if (matchingRegexes.length == 1) {
+            //alert("The matching regex is " + matchingRegexes[0]);
+            return getVariableWithRegex(matchingRegexes[0]);
+        } else {
+            alert("The following regexes match the string: " + matchingRegexes);
+        }
+    } else {
+        alert("There are no regexes matching the string " + stringMatchingRegex);
+        //throw an exception
+    }
+}
+//alert(stringMatchesRegex("dah", /dah/))
+//alert(getVar("dah"));
+//setVar(/regex/, /regex/);
+
+//alert(getVar("regex"));
+
+addFunction(matchExact);
+s.description = "Return whether the string exactly matches the regex.";
+s.isDefined = true;
+s.requiresTheFunctions = false;
+
+function matchExact(r, str) {
+    var match = str.match(r);
+    return match != null && str == match[0];
+}
+
+addFunction(stringMatchesRegex);
+// matchExact(r, str) : Return whether the string exactly matches the regex.
+s.isDefined = true;
+s.requiresTheFunctions = [matchExact];
+s.parameterTypes = ["string", "regular expression"];
+s.returnType = "string";
+s.regexArray = [
+    ["the string(|:)", "(matches|corresponds to) the regex(|:)"],
+    ["matches the (string|word)(:|)", "the regex(:|)"]
+];
+//s.exampleRegexMatches = [["The string:", "matches the regex:"], ["corresponds to the string:", "the regex:"]];
+s.description = "Return true if the string matches the regex; return false otherwise."
+s.functionNameRegexes = ["(word|string)(CorrespondsTo|Matches)(regularExpression|Regex)"];
+s.requiresFunctionsMatchingStrings = false;
+
+function stringMatchesRegex(str, regex) {
+    if (matchExact(regex, str) == true) {
+        return true;
+    } else {
+        return false;
+    }
+}
+
+//addFunction(stringsMatchRegex);
+//s.isDefined = false;
+//s.requiresTheFunctions = [stringMatchesRegex];
+//s.parameterTypes = ["regExp", "string"];
+//s.returnType = "boolean";
+//s.regexArray = [["The string:", "matches the regex:"]];
+//s.exampleRegexMatches = [["str", "matches regexp:"], ["the word:", "matches the regular expression:"]]
+//s.description = "Return true if every string in the array of strings matches the regex; return false otherwise."
+//s.requiresFunctionsMatchingStrings = [["the string:", "matches the regex"], ["The regex:", "matches the string:"]]
+//function stringsMatchRegex(regex, string){
+//
+//}
+
+addFunction(regexesMatchString);
+s.isDefined = false;
+s.parameterTypes = ["string", "regex[]"];
+s.regexArray = [
+    ["match the string", "the regexes"]
+];
+s.exampleRegexMatches = [
+    ["match the string:", "the regexes"],
+    ["correspond to the string:", "the regexps:"]
+]
+s.returnType = "boolean";
+s.description = "Return true if every regex in the array of regexes matches the string; return false otherwise.";
+s.requiresFunctionsMatchingStrings = ["the string:", "matches the regex:"];
+s.requiresTheFunctions = [everyRegexMatchesOneString];
+s.isDefined = true;
+// everyRegexMatchesOneString(strings, regexes): undefined
+function regexesMatchString(str, regexes) {
+    //requires stringMatchesRegex(string, regex)
+    //for(var i = 0; i < regexes.length; i++){
+    //if(!stringMatchesRegex(str, regexes[i])){
+    //return false;
+    //}
+    //}
+    if (everyRegexMatchesOneString([str], regexes)) {
+        return true;
+    }
+    return false;
+}
+
+//alert(stringsMatchRegexesInAnyOrder(["bah"], [/bah/, /bah/]));
+//alert("Every regex matches one string:"+ regexesMatchString("buh", [/b(u)h/, /b(a|u)h/]));
+
+addFunction(regexesMatchStringsInSameOrder);
+s.requiresTheFunctions = false;
+s.regexArray = [
+    [/the regexes/, /(correspond to|match) the strings in the same order/]
+]
+s.isDefined = true;
+
+function regexesMatchStringsInSameOrder(strings, regexes) {
+    //requires regexesMatchString
+    for (var i = 0; i < strings.length; i++) {
+        if (f(["the string", strings[i], "matches the regex", regexes[i]]) == false) {
+            writeMessage("Not all of the strings match the regexes in the same order!");
+            return false;
+        }
+    }
+    return true;
+}
+//alert(regexesMatchStringsInSameOrder(["a", "b", "c"], [/b/,/a/,/c/]));
+
+//alert("regexes match strings in same order: "+ f(["the regexes", ["thg", "teh"], "match the strings in the same order", [/tgf/, /teh/]]));
+
+//callFunctionWithNamedArgs("string", "string", "matches regex", "string")
+
+addFunction(getFunctionName);
+s.isDefined = true;
+s.requiresTheFunctions = false;
+s.parameterTypes = ["function"];
+s.returnType = "string";
+s.regexArray = [
+    ["Get the (function's name|name of the function):"]
+];
+s.exampleRegexMatches = [
+    ["Get the function's name:"],
+    ["Get name:"]
+];
+s.description = "Print the name of the function that is provided as a parameter."
+
+function getFunctionName(theFunction) {
+    var str = theFunction.toString();
+    return str.substring(str.indexOf(" ") + 1, str.indexOf("("));
+}
+
+//console.log(f(["Get the name of the function:", getFunctionName]));
+
+addFunction(getDimension);
+s.requiresTheFunctions = false;
+s.isDefined = false;
+s.regexArray = [
+    ["Get the dimension of the array"]
+];
+s.exampleRegexMatches = [
+    ["Get dim:"],
+    ["Get dimension:"],
+    ["Find dimension:"]
+]
+s.returnType = "integer";
+s.description = "Return the dimension of the array that is provided as a parameter."
+s.parameterTypes = ["Array"];
+s.requiresFunctionsMatchingStrings = false;
+
+function getDimension(arr) {
+
+}
+
+addFunction(getAllFunctionsWithTheTypes)
+s.isDefined = false;
+s.returnType = "Array";
+s.parameterTypes = ["Array"]
+s.requiresFunctionsMatchingStrings = [
+    ["the type of the function:"]
+]
+s.regexArray = [
+    ["getAllFunctionsWithTheTypes:"]
+];
+s.requiresTheFunctions = [getAllFunctions];
+
+function getAllFunctionsWithTheTypes(arr) {
+
+}
+
+addFunction(stringsMatchRegexes);
+s.description = "Determine whether every string matches every regex. A given string in strings should match every regex in regexes.";
+s.returnType = "boolean";
+s.isDefined = false;
+s.requiresTheFunctions = [regexesMatchString];
+// regexesMatchString(str, regexes): Return true if every regex in the array of regexes matches the string; return false otherwise.
+s.parameterTypes = ["string", "string"];
+s.regexArray = [
+    ["(|the )strings(:|)", "match (|the )(regexe|regular expression|regexp)s(:|)"]
+]
+
+function stringsMatchRegexes(strings, regexes) {
+    for (var i = 0; i < strings.length; i++) {
+        if (regexesMatchString(strings[i], regexes) == false) {
+            return false;
+        }
+    }
+    return true;
+}
+
+//writeMessage(f(["the strings", ["ga"], "match the regexes", [/gah/]]));
+
+addFunction(getMatchingStrings);
+s.requiresTheFunctions = [stringMatchesRegex];
+s.returnType = "array";
+s.description = "Get every string in the array strings that matches the regex"
+s.parameterTypes = "string", "regExp"
+s.regexArray = [
+    ["for the strings", "get the strings matching the regex"]
+]
+s.isDefined = true;
+
+function getMatchingStrings(strings, regex) {
+    var arr = new Array();
+    for (var i = 0; i < strings.length; i++) {
+        if (stringMatchesRegex(strings[i], regex)) {
+            arr[arr.length] = strings[i];
+        }
+    }
+    return arr;
+}
+
+//writeMessage(getNumberOfMatches(["buh", "bah", "kuh"], /b(u|a)h/))
+
+addFunction(getNumberOfMatches);
+s.returnType = "number";
+s.parameterTypes = ["strings", "RegExp"];
+s.description = "Get the number of strings that match the regular expression";
+s.regexArray = [
+    ["matching the strings:", "get the regex:"]
+];
+s.requiresTheFunctions = [getMatchingStrings];
+s.isDefined = true;
+
+function getNumberOfMatches(strings, regex) {
+    return getMatchingStrings(strings, regex).length;
+}
+//alert(getNumberOfMatches(["gah", "bah"], /(b|g)ah/))
+
+addFunction(stringsMatchRegexesInAnyOrder);
+s.returnType = "boolean";
+s.parameterTypes = ["string", "RegExp"]
+s.description = "Return true if (every string matches one regex) and (every regex matches one string), otherwise return false."
+s.requiresTheFunctions = [getNumberOfMatches, everyRegexMatchesOneString, everyStringMatchesOneRegex];
+s.isDefined = true;
+//getNumberOfMatches(strings, regex)
+//everyRegexMatchesOneString(strings, regexes)
+//everyStringMatchesOneRegex(strings, regexes)
+function stringsMatchRegexesInAnyOrder(strings, regexes) {
+    if (everyRegexMatchesOneString(strings, regexes) && everyStringMatchesOneRegex(strings, regexes)) {
+        return true;
+    }
+    return false;
+}
+//alert("Strings match regexes in any order: " + stringsMatchRegexesInAnyOrder(["agg", "ugg", "bah"], [/agg/, /(ugg)/, /bah/]));
+
+addFunction(everyStringMatchesOneRegex);
+s.requiresTheFunctions = [getNumberOfRegexMatches];
+s.isDefined = true;
+
+function everyStringMatchesOneRegex(strings, regexes) {
+    //getNumberOfRegexMatches(regexes, theString)
+    for (var i = 0; i < strings.length; i++) {
+        if (getNumberOfRegexMatches(regexes, strings[i]) != 1) {
+            return false;
+        }
+    }
+    return true;
+}
+//writeMessage("Every string matches one regex: " + everyStringMatchesOneRegex(["blah"], [/bl(a|h)h/, /bleh/]));
+
+addFunction(getNumberOfRegexMatches);
+s.requiresTheFunctions = [getMatchingRegexes];
+s.isDefined = true;
+
+function getNumberOfRegexMatches(regexes, theString) {
+    return getMatchingRegexes(regexes, theString).length;
+}
+
+//this still needs to be tested
+addFunction(getMatchingRegexes);
+s.requiresTheFunctions = [stringMatchesRegex];
+s.isDefined = true;
+s.description = "Get all the regexes in theRegexes that match theString"
+
+function getMatchingRegexes(theRegexes, theString) {
+    var regexArray = new Array();
+    for (var i = 0; i < theRegexes.length; i++) {
+        if (stringMatchesRegex(theString, theRegexes[i])) {
+            regexArray[regexArray.length] = theRegexes[i];
+        }
+    }
+    return regexArray;
+}
+//alert("Matching regexes: "+getMatchingRegexes([/stuff/, /cuff/, /st(a|u)ff/], "stuff"));
+
+addFunction(everyRegexMatchesOneString);
+s.isDefined = true;
+s.requiresTheFunctions = [getNumberOfMatches];
+
+function everyRegexMatchesOneString(strings, regexes) {
+    for (var i = 0; i < regexes.length; i++) {
+        if (getNumberOfMatches(strings, regexes[i]) != 1) {
+            return false;
+        }
+    }
+    return true;
+}
+
+//writeMessage(stringsMatchRegexesInAnyOrder(["la", "la"], [/la/, /la/]))
+
+addFunction(canBeImplemented);
+s.isDefined = true;
+s.requiresTheFunctions = false;
+
+function canBeImplemented(theFunction) {
+    var functionName = getFunctionName(theFunction);
+    var funs = theFunction.prototype.requiresTheFunctions;
+    if (theFunction.prototype.isDefined == true) {
+        //writeMessage("The function " + functionName + " is already implemented!");
+        return false;
+    }
+    if (funs == undefined) {
+        //writeMessage(functionName + "'s required functions are not yet listed!")
+        return false;
+    }
+    if (funs == false) {
+        //writeMessage("The function " + getFunctionName(theFunction) + " requires no functions!<br />");
+    }
+    for (var i = 0; i < funs.length; i++) {
+        //writeMessage("Checking " + getFunctionName(funs[i]) + "<br />");
+        if (funs[i].prototype.isDefined != true) {
+            writeMessage(getFunctionName(funs[i]) + "is not yet defined!");
+            implementsTheInterface(funs[i]);
+            return false;
+        }
+        //writeMessage(getFunctionName(funs[i]) + " is defined!");
+    }
+    return true;
+}
+
+writeMessage(canBeImplemented(canBeImplemented));
+
+//writeMessage(getFunctionName(doStuff));
+
+
+addFunction(getAllRequiredFunctions);
+s.description = "Get an array consisting of every function that is required by a particular function."
+s.isDefined = false;
+s.requiresTheFunctions = false;
+
+function getAllRequiredFunctions(theFunction) {
+
+}
+
+addFunction(getAllFunctions);
+s.requiresTheFunctions = false;
+s.description = "Get all the functions that exist."
+s.isDefined = true;
+
+function getAllFunctions() {
+    return functionsList;
+}
+
+addFunction(stringsMatchFunction);
+s.requiresTheFunctions = [stringsMatchRegexesInAnyOrder];
+s.regexArray = [
+    [/function/, /parameter names/],
+    [/function/, /parameter names/]
+];
+s.description = "return true if the strings correspond to at least one of the function's regex arrays."
+s.isDefined = true;
+//stringsMatchRegexesInAnyOrder(strings, regexes)
+function stringsMatchFunction(theFunction, parameterNames) {
+    var arr = theFunction.prototype.regexArray;
+    for (var i = 0; i < arr.length; i++) {
+        if (stringsMatchRegexesInAnyOrder(parameterNames, arr[i])) {
+            return true;
+        }
+    }
+    return false;
+}
+//writeMessage("Strings match function: " + stringsMatchFunction(stringsMatchFunction, ["functioon", "parameter names"]));
+
+function parenthesesAreMatching(theString) {
+    var num = 0;
+    for (var i = 0; i < theString.length; i++) {
+        if (theString.charAt(i) == "(") {
+            num++;
+        }
+        if (theString.charAt(i) == ")") {
+            num--;
+        }
+    }
+    if (num == 0) {
+        return i;
+    } else {
+        return false;
+    }
+}
+
+addFunction(getCorrespondingParenthesesIndex);
+s.requiresTheFunctions = false;
+s.isDefined = true;
+s.description = "Get the closing parentheses index that corresponds to the opening parentheses index"
+
+function getCorrespondingParenthesesIndex(theString, openingParenthesesIndex) {
+    if (!parenthesesAreMatching(theString)) {
+        writeMessage("Error: The parentheses do not match!");
+        return false;
+    }
+    if (theString.charAt(openingParenthesesIndex) != "(") {
+        writeMessage("Error: The index must be an opening parentheses!");
+        return false;
+    }
+    var num = 0;
+    for (var i = openingParenthesesIndex; i < theString.length; i++) {
+        if (theString.charAt(i) == "(") {
+            num++;
+        }
+        if (theString.charAt(i) == ")") {
+            num--;
+        }
+        if (num == 0) {
+            return i;
+        }
+    }
+    writeMessage("Error: The parentheses do not match!");
+    return false;
+}
+
+//writeMessage(getCorrespondingParenthesesIndex("((blah(keh)dasa))", 0));
+
+function addFunction(functionName) {
+    s = functionName.prototype;
+    functionsList[functionsList.length] = functionName;
+    //var functionNameIsReallyValid = functionNameIsValid(functionName);
+    //if(!functionNameIsReallyValid){
+    //	alert("Function name is valid: " + functionNameIsReallyValid);
+    //}
+}
+
+addFunction(getParenthesesNum);
+s.requiresTheFunctions = false;
+s.isDefined = true;
+s.description = "this should be based on parenthesesAreMatching, but stopping at index";
+
+function getParenthesesNum(theString, index) {
+    //this should be based on parenthesesAreMatching, but stopping at index
+    var num = 0;
+    for (var i = 0; i < index; i++) {
+        if (theString.charAt(i) == "(") {
+            num++;
+        }
+        if (theString.charAt(i) == ")") {
+            num--;
+        }
+    }
+    return num;
+}
+//writeMessage("Get parentheses num: " + getParenthesesNum("((a|))a", 2))
+
+addFunction(charIsInsideParentheses);
+s.requiresTheFunctions = [getParenthesesNum];
+s.isDefined = true;
+s.description = "If the character is inside two parentheses, return true. Otherwise, return false.";
+
+function charIsInsideParentheses(theString, charIndex) {
+    var a = getParenthesesNum(theString, charIndex);
+    //writeMessage("parentheses num: " + a)
+    if ((a > 0)) {
+        return true;
+    } else {
+        return false;
+    }
+}
+
+//writeMessage("char is inside parentheses: " + charIsInsideParentheses("a(a)aaaaaaaaaaaaaaaaa", 2));
+
+// getCorrespondingParenthesesIndex(theString, openingParenthesesIndex): Get the closing parentheses index that corresponds to the opening parentheses index
+addFunction(getStringFromParentheses);
+s.isDefined = true;
+s.requiresTheFunctions = [getCorrespondingParenthesesIndex];
+s.description = "Get the string that corresponds to the parentheses index, without the outer parentheses."
+
+function getStringFromParentheses(theString, parenthesesIndex) {
+    return theString.substring(parenthesesIndex + 1, getCorrespondingParenthesesIndex(theString, parenthesesIndex))
+}
+//alert(getStringFromParentheses("lo(hoo(shoo))gah", 6));
+
+//writeMessage(getStringFromParentheses("s(sas(aa)a(gugh))asasa", 1));
+
+// getCorrespondingParenthesesIndex(theString, openingParenthesesIndex): Get the closing parentheses index that corresponds to the opening parentheses index
+// charIsInsideParentheses(theString, charIndex): undefined
+// getStringFromParentheses(theString, parenthesesIndex): Get the string that corresponds to the parentheses index.
+
+addFunction(getStringsInsideParentheses);
+s.description = "Return an array of strings inside the parentheses, separated by vertical bars.";
+s.requiresTheFunctions = [getCorrespondingParenthesesIndex, getStringFromParentheses, getParenthesesNum];
+s.isDefined = true;
+// getCorrespondingParenthesesIndex(theString, openingParenthesesIndex): Get the closing parentheses index that corresponds to the opening parentheses index
+// getStringFromParentheses(theString, parenthesesIndex): Get the string that corresponds to the parentheses index, without the outer parentheses.
+// getParenthesesNum(theString, index): this should be based on parenthesesAreMatching, but stopping at index
+function getStringsInsideParentheses(string, parenthesesIndex) {
+    //alert("calling function getStringsInsideParentheses");
+    var theString = getStringFromParentheses(string, parenthesesIndex);
+    for (var i = 0; i < theString.length; i++) {
+        var theParenthesesNum = getParenthesesNum(theString, i);
+        if (theString[i] == '|') {
+            //alert("Parentheses num: " + theParenthesesNum);
+            if (theParenthesesNum == 0) {
+                theString = theString.substring(0, i) + "|" + theString.substring(i, theString.length);
+                i++;
+            }
+        }
+    }
+    //alert(theString);
+    return theString.split("||")
+}
+//alert(getStringsInsideParentheses("((g|a|(b|h)h))", 1));
+
+addFunction(getRandomStringInsideParentheses);
+s.requiresTheFunctions = [charIsInsideParentheses, getStringsInsideParentheses];
+s.description = "Return a random string from inside the parentheses.";
+s.isDefined = true;
+// charIsInsideParentheses(theString, charIndex): If the character is inside two parentheses, return true. Otherwise, return false.
+// getStringsInsideParentheses(string, parenthesesIndex): Return an array of strings inside the parentheses, separated by vertical bars.
+function getRandomStringInsideParentheses(string, parenthesesIndex) {
+    var stringArray = getStringsInsideParentheses(string, parenthesesIndex)
+    //find out how to pick random in a range
+    //pick something random from the array declared above
+    //var theMin = 0;
+    //var theMax = stringArray.length-1;
+    var randomNumber = Math.floor(Math.random() * stringArray.length);
+    return stringArray[randomNumber];
+}
+//alert(stringArray = getRandomStringInsideParentheses("(bah|jah|gah)", 0));
+
+addFunction(replaceInFirstParentheses);
+s.requiresTheFunctions = [getCorrespondingParenthesesIndex, getRandomStringInsideParentheses];
+s.description = "Replace the text inside the first parentheses with something that is randomly selected from in the parentheses.";
+//The function replaceInFirstParenthesescan be implemented! 
+//Description: Replace the text inside the first parentheses with something that is randomly selected from in the parentheses.
+//It requires the functions:
+// getCorrespondingParenthesesIndex(theString, openingParenthesesIndex): Get the closing parentheses index that corresponds to the opening parentheses index
+// getRandomStringInsideParentheses(string, parenthesesIndex): Return a random string from inside the parentheses.
+s.isDefined = true;
+
+function replaceInFirstParentheses(theString) {
+    //find the index of the first parentheses
+    var parenthesesIndex = theString.indexOf("(");
+    var randomString = getRandomStringInsideParentheses(theString, parenthesesIndex);
+    //alert(randomString);
+
+    //theString = theString.replace();
+
+    //find the string to replace
+    var stringToReplace = theString.substring(parenthesesIndex, getCorrespondingParenthesesIndex(theString, parenthesesIndex) + 1);
+    //alert(stringToReplace);
+    theString = theString.replace(stringToReplace, randomString);
+    //alert(theString);
+    return theString;
+}
+
+//replaceInFirstParentheses("goodfd(hah!|woo|goo|shoo) (hah!|woo|goo|shoo)");
+
+addFunction(getRandomStringFromNestedParentheses);
+s.requiresTheFunctions = [replaceInFirstParentheses];
+s.isDefined = true;
+s.description = "Use this to generate random fractal patterns. Get a random string by recursively selecting random strings inside parentheses."
+// replaceInFirstParentheses(theString): Replace the text inside the first parentheses with something that is randomly selected from in the parentheses.
+function getRandomStringFromNestedParentheses(theString) {
+    while (theString.indexOf("(") != -1) {
+        theString = replaceInFirstParentheses(theString);
+    }
+    return theString;
+}
+//for(var i = 0; i < 10; i++){
+//document.write(getRandomStringFromNestedParentheses("((Cat|Kittie)|(D|H|B|L)og)(s|ses) are (p|fl)(uff|oof)y! I (l(ove|ike)|enjoy) (cat|kittie|(b|h|d)og)(s|(s|z)or(s|z)|ses)!<br />"));
+//}
+
+addFunction(replaceWithRandomFromRegex);
+s.requiresTheFunctions = [getRandomStringFromNestedParentheses];
+s.description = "In theString, replace the first match of theRegex with a randomly generated match of theRegex"
+s.isDefined = true;
+// getRandomStringFromNestedParentheses(theString): Use this to generate random fractal patterns. Get a random string by recursively selecting random strings inside parentheses.
+
+//this currently only replaces the first match. Fix it so that it replaces all matches.
+
+function replaceWithRandomFromRegex(theString, theRegexString) {
+
+    //this currently only replaces the first match. Fix it so that it replaces all matches.
+
+    //theString = theString.replace();
+    var randomMatch = getRandomStringFromNestedParentheses(theString);
+    var theMatches = theString.match(new RegExp(theRegexString));
+    if (theMatches == null) {
+        return theString;
+    }
+    //get first string in theString that match theRegex
+    var matchingString = theMatches[0];
+    //alert(matchingString);
+    theString = theString.replace(matchingString, getRandomStringFromNestedParentheses(theRegexString));
+    //alert(theString);
+    return theString;
+    //now get the first string that matches theRegex
+    //get the starting index of the first string that matches theRegex
+}
+//alert(replaceWithRandomFromRegex("Hi! This is great!", "(Hi|Hello|Greetings|Salutations|Welcome)! (This|That) is (great|cool|awesome|amazing|good)!"));
+
+addFunction(globalReplaceWithRandomFromRegex);
+s.requiresTheFunctions = [replaceWithRandomFromRegex];
+s.isDefined = true;
+// replaceWithRandomFromRegex(theString, theRegexString): In theString, replace the first match of theRegex with a randomly generated match of theRegex
+function globalReplaceWithRandomFromRegex(theString, theRegexString) {
+    var theRegex = new RegExp(theRegexString, "gi");
+    //replace all matches of theRegex with '<thing to replace>'
+    theString = theString.replace(theRegex, "<thing to replace>")
+
+
+    //replace the first match of '<thing>'
+
+    while (theString.indexOf("<thing to replace>") != -1) {
+        theString = theString.replace("<thing to replace>", getRandomStringFromNestedParentheses(theRegexString));
+    }
+
+    //alert(theString);
+    return theString;
+}
+//globalReplaceWithRandomFromRegex("freak freak loony crackpot freak freak", "(freak|loony|crackpot|nutcase)");
+
+addFunction(replaceWithRandomFromRegexes);
+// replaceWithRandomFromRegex(theString, theRegexString): In theString, replace the first match of theRegex with a randomly generated match of theRegex
+s.requiresTheFunctions = [globalReplaceWithRandomFromRegex];
+s.isDefined = true;
+s.description = "Automatic paraphraser. For each regex, replace all matches of the regex in theString with a randomly generated match of the regex."
+
+function replaceWithRandomFromRegexes(theString, theRegexes) {
+    //alert(theRegexes);
+    for (var i = 0; i < theRegexes.length; i++) {
+        theString = globalReplaceWithRandomFromRegex(theString, theRegexes[i]);
+        //alert(theRegexes[i]);
+    }
+    //alert("All the regexes: " + theRegexes);
+    return theString;
+}
+
+//for(var i = 0; i < 10; i++){
+//document.write(replaceWithRandomFromRegexes("Cats are poofy, poofy, poofy, poofy! I adore cats!", ["(love|adore)", "(magical|magic)", "(2|two)", "(plus|added to)", "(=|equals|is equal to)", "(speaking|saying|uttering)", "(horrible|despicable|terrible|evil)", "(linearly dependent|not linearly independent)", "(linearly indedependent|not linearly dependent)", "I (will|shall|am going to)", "(happy|joy(ous|ful))", "(are you|art thou)", "(isn't|ain't)", "(your|thy)", "(head|skull|braincase|noggin)", "(round|spherical)", "(world|planet|ball that we live on)", "(ball|sphere|spheroid)", "(person|personage|dude|chap|guy)", "(cats|kitties)", "((p|fl)(oo|uf)fy)", "(crazy|loony|nutty|deranged|kooky|freaky|weird|strange|insane)", "(hello|greetings|salutations|welcome| hi)", "(dwell|reside|live)", "(I beg of you|please)", "(murder|kill|slay)", "(will not|shall not|must not)", "(number|quantity)"])+"<br />");
+//}
+
+addFunction(replaceInParentheses);
+s.requiresTheFunctions = [getVar, getStringsInsideParentheses, getLongestString, getShortestString];
+s.description = "Replace the text inside the parentheses (including the parentheses) with theString"
+
+function replaceInParentheses(nestedParenthesesString, theString, parenthesesIndex) {
+
+}
+
+addFunction(pickStringAtParenthesesIndex);
+s.description = "Replace the inside of the parentheses with stringToPick, if stringToPick is inside the list of parentheses."
+s.requiresTheFunctions = [getStringsInsideParentheses, replaceInParentheses];
+// getStringsInsideParentheses(string, parenthesesIndex):
+// Return an array of strings inside the parentheses, separated by vertical bars.
+function pickStringAtParenthesesIndex(nestedParenthesesString, stringToPick, parenthesesIndex) {
+    var stringList = getStringsInsideParentheses(nestedParenthesesString, parenthesesIndex);
+}
+
+addFunction(pickStringInNestedParentheses);
+s.description = "Example: pickStringInNestedParentheses('(lava|fire) (wood)', fire) should become '(fire) (wood)'";
+s.requiresTheFunctions = [pickStringAtParenthesesIndex];
+
+function pickStringInNestedParentheses(theString, theRegex) {
+
+}
+
+addFunction(getTreeFromRegex);
+s.requiresTheFunctions = [pickStringInNestedParentheses, getRandomStringFromNestedParentheses, getStringsInsideParentheses, replaceWithRandomFromRegexes];
+
+function getTreeFromRegex(regex) {
+
+}
+
+addFunction(generateRandomString);
+s.requiresTheFunctions = [getRandomStringFromNestedParentheses];
+s.isDefined = true;
+
+function generateRandomString(nestedParentheses) {
+    return getRandomStringFromNestedParentheses(nestedParentheses);
+}
+
+addFunction(enlarge1DArray);
+s.requiresTheFunctions = false;
+s.isDefined = true;
+
+function enlarge1DArray(array) {
+    var newArray = new Array();
+    //var copyArr = copy1DArray(array);
+    for (var i = 0; i < array.length * 2; i += 2) {
+        //writeMessage(array[i/2]);
+        newArray[i] = array[i / 2];
+        newArray[i + 1] = newArray[i];
+    }
+    return newArray;
+}
+
+//writeMessage(enlarge1DArray([1, 0]));
+
+addFunction(copy1DArray);
+s.requiresTheFunctions = false;
+s.isDefined = true;
+
+function copy1DArray(array) {
+    return array.slice(0);
+}
+
+addFunction(enlarge2DArray);
+s.requiresTheFunctions = [enlarge1DArray, copy1DArray];
+s.isDefined = true;
+
+function enlarge2DArray(array) {
+    var num = array.length;
+    //writeMessage("array.length is " + array.length)
+    var newArr = new Array();
+    for (var i = 0; i < array.length*2; i+= 2) {
+        //writeMessage("i is " + i);
+        //writeMessage("array[i]:" + array[i]);
+        //writeMessage("1D array:" + enlarge1DArray(array[i]));
+        newArr[i] = enlarge1DArray(array[i/2]);
+        newArr[(i)+1] = enlarge1DArray(array[i/2]);
+        //array[i] = enlarge1DArray(array[i]);
+        //;
+        //array[i] = b;
+        //array[i] = 1;
+    }
+    //writeMessage(array.length);
+    //writeMessage(newArr);
+    //writeMessage(newArr[0]);
+    return newArr;
+}
+//enlarge2DArray([[1, "Hah!", 1, 1], [0, 0, 0, 0]])
+
+addFunction(get1DSubArray);
+s.requiresTheFunctions = false;
+s.description = "Get the sub-array between x1 and x2, inclusive."
+s.isDefined = true;
+
+function get1DSubArray(array, x1, x2) {
+    var newArr = new Array();
+    for (var i = x1; i < x2 + 1; i++) {
+        var j = i - x1;
+        newArr[j] = array[i];
+    }
+    return newArr;
+}
+
+//var arr2 = [1, 4, 3];
+//writeMessage(get1DSubArray(arr2, 1, 2));
+
+addFunction(get2DSubArray);
+s.requiresTheFunctions = [getWrappingElement];
+s.isDefined = false;
+s.description = "Get the sub-array bounded by x1, y1, x2, y2 (inclusive), in a 2D array"
+s.isDefined = true;
+//The function  get2DSubArray(array, x1, y1, x2, y2) can be implemented! 
+//Description: Get the sub-array bounded by x1, y1, x2, y2.
+//It requires the functions:
+//getWrappingElement(array, x, y) 
+//Get the element in the array that corresponds to the coordinates (x, y)
+function get2DSubArray(arr, x1, y1, x2, y2) {
+    var newArr = new Array();
+    for(var i = x1; i <= x2; i++){
+		newArr[i] = new Array();
+		for(var j = y1; j <= y2; j++){
+			newArr[i][j] = getWrappingElement(arr, i, j);
+		}
+	}
+	return newArr;
+}
+//console.log(get2DSubArray([["x",2,3,4],[1,2,3,4],[1,2,3,4],[1,2,3,4],[1,2,3,4],[1,2,3,4],[1,2,3,4],[1,2,3,4],[1,2,3,4]], 0, 0, 10, 10));
+//var arr2 =
+//[[1, 1, 1, 1],
+//[7, 7, 0, 0],
+//[4, 4, 4, 4],
+//[5, 5, 5, 5]];
+//get2DSubArray(arr2, 0, 2, 2, 3);
+
+addFunction(arrFitsInsideArr);
+s.requiresTheFunctions = false;
+s.description = "Return true if arr1 can fit inside arr2. Precondition: arr1 and arr2 are both square arrays"
+s.isDefined = true;
+
+function arrFitsInsideArr(arr1, arr2) {
+    if (arr1.length <= arr2.length) {
+        if (arr1[0].length <= arr2[0].length) {
+            return true;
+        }
+    }
+    return false;
+}
+//writeMessage(arrFitsInsideArr(arr1, arr2);
+
+
+addFunction(coordinatesMatchArray);
+s.requiresTheFunctions = [get2DSubArray, getFunctionInformation];
+s.description = "Determine whether the array contains that array starting at the specified coordinates."
+//The function  coordinatesMatchArray(inTheArray, matchingTheArray, x1, y1)can be implemented! 
+//Description: Determine whether the array contains that array starting at the specified coordinates.
+ //It requires the functions:
+// get2DSubArray(arr, x1, y1, x2, y2) 
+//Get the sub-array bounded by x1, y1, x2, y2 (inclusive), in a 2D array
+function coordinatesMatchArray(inTheArray, matchingTheArray, x1, y1){ //no x2 and y2
+	x2 = x1 + matchingTheArray.length - 1;
+	y2 = y1 + matchingTheArray[0].length - 1;
+	var theSubArray = get2DSubArray(inTheArray, x1, y1, x2, y2);
+	if(matchingTheArray == theSubArray){
+		return true;
+	}
+	else{
+		return false;
+	}
+}
+
+
+addFunction(getTheCoordinates);
+s.requiresTheFunctions = [get2DSubArray, coordinatesMatchArray];
+s.description = "Get the array of coordinates corresponding to the points in InTheArray that match matchingTheArray."
+
+function getTheCoordinates(inTheArray, matchingTheArray) {
+    for (var i = 0; i < inTheArray.length; i++) {
+        for (var j = 0; j < inTheArray[0].length; j++) {
+			
+        }
+    }
+}
+
+
+addFunction(replaceArray);
+s.requiresTheFunctions = [getTheCoordinates, coordinatesMatchArray];
+function replaceArray(replaceTheArray, inTheArray, withTheArray) {
+
+}
+
+addFunction(convertImageToCanvas);
+s.requiresTheFunctions = false;
+
+function convertImageToCanvas(image) {
+    var canvas = document.createElement("canvas");
+    canvas.width = image.width;
+    canvas.height = image.height;
+    canvas.getContext("2d").drawImage(image, 0, 0);
+    return canvas;
+}
+
+addFunction(get1DArrayFromFileName);
+s.requiresTheFunctions = false;
+s.isDefined = true;
+s.description = "Get a 1-dimensional RGB array that corresponds to the file name. refer to \"call asynchronous functions synchronously\" in the node.js folder"
+//search for "extractPixels.js" on the local disk
+function get1DArrayFromFileName(imageName, theVariable, theCallback){
+
+var thePixels = new Array;
+async.series([function(callback){
+	firstStep(imageName, callback);
+},
+function(callback){
+	//console.log(thePixels.length);
+	theVariable = thePixels;
+	theCallback();
+}
+]);
+
+function firstStep(imagePath, callback){
+PNG.decode(imagePath, function(pixels) {
+    // pixels is a 1d array of decoded pixel data
+    var newArr = pixels;
+    for(var i = 0; i < pixels.length; i++){
+		newArr[i] = pixels.length;
+		//console.log(pixels[i]);
+	}
+	thePixels = pixels;
+	theArr = newArr;
+	callback();
+});
+}
+}
+
+
+addFunction(getStringFromArray);
+s.requiresTheFunctions = false;
+s.isDefined = true;
+
+function getStringFromArray(array) {
+    //convert the 2D array to a string
+    var str = "";
+    for (var i = 0; i < array.length; i++) {
+        for (var j = 0; j < array[i].length; j++) {
+            str += array[i][j];
+            if (!(i == array.length - 1 && j == array[i].length - 1)) {
+                str += " ";
+            }
+        }
+    }
+    return str;
+}
+
+//writeMessage(getStringFromArray([["water", "fire", "fire"], ["air", "air", "air"], ["rock", "rock", "rock"]]));
+
+addFunction(regexMatches2DArray);
+s.requiresTheFunctions = [getStringFromArray];
+s.isDefined = true;
+
+function regexMatches2DArray(array, regex) {
+    var str = getStringFromArray(array);
+    if (regexesMatchString(str, [regex]) == true) {
+        return true;
+    } else {
+        return false;
+    }
+}
+
+//writeMessage("Matches 2D array:"+ regexMatches2DArray([["water", "fire", "fire"], ["air", "air", "air"], ["rock", "rock", "rock"]], /water (lava|fire) (lava|fire) air air air rock rock rock/));
+
+addFunction(replaceElementIn1DArray);
+s.requiresTheFunctions = false;
+s.isDefined = true;
+s.description = "In array, replace toReplace with replaceWith";
+
+function replaceElementIn1DArray(array, toReplace, replaceWith) {
+    for (var i = 0; i < array.length; i++) {
+        if (array[i] == toReplace) {
+            array[i] = replaceWith;
+        }
+    }
+}
+
+addFunction(replaceElementIn2DArray);
+//The function  replaceElementIn2DArray(array, toReplace, replaceWith) can be implemented! 
+//Description: undefined
+ //It requires the functions:
+// replaceElementIn1DArray(array, toReplace, replaceWith) 
+//undefined
+// getArray(imageName, theVariable, theCallback)
+//Get a 1-dimensional RGB array that corresponds to the file name. refer to "call asynchronous functions synchronously" in the node.js folder
+s.requiresTheFunctions = [replaceElementIn1DArray, get2DSubArray, getFunctionInformation];
+
+function replaceElementIn2DArray(array, toReplace, replaceWith) {
+
+}
+
+addFunction(printExpression);
+s.requiresTheFunctions = false;
+s.isDefined = true;
+s.description = "print an expression, first in terms of the variables, and then print the value of the expression. variablesToReplace correspond to the variables in the string to replace."
+//variablesToReplace should be an array of strings, not an array of functions
+//numbersToDisplay corresponds to the list of variable names
+function printExpression(theString, variablesToReplace, numbersToDisplay) {
+    var newString = theString;
+    for (var i = 0; i < variablesToReplace.length; i++) {
+        newString = newString.replace(new RegExp(variablesToReplace[i], "g"), (numbersToDisplay[i]));
+    }
+    writeMessage(theString + " = " + newString + " = " + eval(newString));
+}
+//var gof = 4;
+//var plog = 7;
+//printExpression("(gof + plog)", ["gof", "plog"], [gof, plog]);
+
+addFunction(printFunctionValues);
+s.requiresTheFunctions = false;
+s.isDefined = true;
+s.description = "Print the function values, starting at minimum and ending at maximum, where theFunction is a string";
+
+function printFunctionValues(theFunction, minimum, maximum) {
+    var str = "Print the function values: ";
+    for (var i = minimum; i <= maximum; i++) {
+        var x = i;
+        str += eval(theFunction) + " ";
+    }
+    writeMessage(str);
+}
+
+addFunction(sawtoothFunction);
+s.requiresTheFunctions = false;
+s.isDefined = true;
+
+function sawtoothFunction(range) {
+    return "2*(((x)/2)-Math.floor((x)/2))"
+}
+
+addFunction(getWrappingNumber);
+s.requiresTheFunctions = [printExpression, printFunctionValues, sawtoothFunction];
+s.isDefined = true;
+
+function getWrappingNumber(number, minimum, maximum) {
+    var num = number;
+    var offsetNum = num - minimum;
+    var scale = (maximum - minimum + 1);
+    return Math.round((scale) * (((offsetNum / (scale)) - Math.floor((offsetNum / (scale))))) + minimum);
+    //this should be a sawtooth function
+    //if(minimum > maximum){
+    //	writeMessage("Error: Minimum is greater than maximum!");
+    //	return false;
+    //}
+    //writeMessage("Number: " + number + " Minimum: " + minimum + " Maximum: " + maximum);
+    //var toDisplay = "(number-Math.floor(number))"
+    //writeMessage("Get wrapping number: "+ printExpression(toDisplay, ["number", "minimum", "maximum"], [number, minimum, maximum]));
+    //writeMessage();
+    //return eval(toDisplay);
+}
+//0 1 2 3 0 1 2 3 0 1
+//0 1 2 3 4 5 7 8 9 10
+
+//var theMinimum = 0;
+//var theMaximum = 2;
+//for(var i = theMinimum; i <= theMaximum+10; i++){
+//	writeMessage("Get wrapping number for "+i+": " + getWrappingNumber(i, theMinimum, theMaximum));
+//}
+
+//getWrappingNumber(5, 0, 5, 5);
+//getWrappingNumber(6, 0, 5, 0);
+
+addFunction(getWrappingElement);
+s.requiresTheFunctions = [getWrappingNumber];
+s.isDefined = true;
+s.description = "Get the element in the array that corresponds to the coordinates (x, y)";
+
+function getWrappingElement(array, x, y) {
+    //this should work for any x or y value.
+    //return the element at the x and y coordinate, where x and y wrap around
+    var wrappingX = getWrappingNumber(x, 0, (array.length - 1));
+    var wrappingY = getWrappingNumber(y, 0, (array[wrappingX].length - 1));
+    //writeMessage("Coordinates: " + wrappingX +","+ wrappingY);
+    return array[wrappingX][wrappingY];
+}
+//var theArray = [[0, 1], [2, 3]];
+//writeMessage("Get wrapping element: " + getWrappingElement(theArray, -2, -2));
+
+
+// getWrappingElement(array, x, y): Get the element in the array that corresponds to the coordinates (x, y)
+addFunction(getNeighboringElements);
+s.requiresTheFunctions = [getWrappingElement];
+s.description = "Get all the elements in the wrapping array that are next to (x, y)";
+s.isDefined = true;
+
+function getNeighboringElements(array, x, y) {
+    var arr = new Array();
+    arr[0] = getWrappingElement(array, x - 1, y);
+    arr[1] = getWrappingElement(array, x + 1, y);
+    arr[2] = getWrappingElement(array, x, y - 1);
+    arr[3] = getWrappingElement(array, x, y + 1);
+    return arr;
+}
+
+//var arr = [["wood", "wood", "air"],["air", "air", "fire"],["wood", "wood", "air"]];
+
+//writeMessage(getNeighboringElements(arr, 1, 1));
+
+// getWrappingNumber(number, minimum, maximum): undefined
+// getWrappingElement(array, x, y): Get the element in the array that corresponds to the coordinates (x, y)
+// getNeighboringElements(array, x, y): Get all the elements in the wrapping array that are next to (x, y)
+addFunction(isNextToBlock);
+s.requiresTheFunctions = [getWrappingNumber, getWrappingElement, getNeighboringElements];
+s.isDefined = true;
+s.description = "return true if array[x][y] is next to block"
+
+function isNextToBlock(array, x, y, block) {
+    var arr = getNeighboringElements(array, x, y);
+    //find array contains function
+    if (arr.indexOf(block) != -1) {
+        return true;
+    } else {
+        return false;
+    }
+}
+
+//var arr = [["wood", "wood", "air"],["blob", "air", "fire"],["wood", "wood", "air"]];
+
+//writeMessage(getNeighboringElements(arr, 1, 1));
+//writeMessage(isNextToBlock(arr, 1, 1, "blobb"));
+
+
+addFunction(isNextTo);
+s.requiresTheFunctions = [isNextToBlock];
+s.isDefined = true;
+// isNextToBlock(array, x, y, block): return true if array[x][y] is next to block
+function isNextTo(arr, x, y, blocks) {
+    for (var i = 0; i < blocks.length; i++) {
+        var isNextToStuff = isNextToBlock(arr, x, y, blocks[i]);
+        if (isNextToStuff == false) {
+            return false;
+        }
+    }
+    return true;
+}
+
+//var arr = [["wood", "wood", "air"],["blob", "air", "fire"],["wood", "wood", "air"]];
+//writeMessage(getNeighboringElements(arr, 1, 1));
+//writeMessage("Testing this: " + isNextTo(arr, 1, 1, ["blob", "fire", "wood"])); //this should return true
+
+addFunction(getRandomFromArray);
+s.requiresTheFunctions = false;
+s.description = "Return a random element from the 1D array."
+s.isDefined = true;
+function getRandomFromArray(array) {
+    //find out how to generate a random number within a range
+    var randomNumber = Math.floor(Math.random()*array.length);
+    return array[randomNumber];
+}
+//writeMessage("Get random from array: " + getRandomFromArray(["blah", "bleh", "heh"]));
+
+addFunction(replaceRandom);
+s.requiresTheFunctions = [getRandomFromArray, arrayContains, getTheCoordinates, coordinatesMatchArray];
+s.description = "In arr (a 2D array), replace every element from list1 with a random element from list2."
+
+function replaceRandom(arr, list1, list2) {
+    for (var i = 0; i < arr.length; i++) {
+        for (var j = 0; j < arr[i].length; i++) {
+			
+        }
+    }
+}
+
+addFunction(oneOfEachType);
+s.requiresTheFunctions = false;
+s.isDefined = false;
+s.description = "Return true if arr has one element of each type, otherwise return false."
+s.isDefined = true;
+
+function oneOfEachType(arr) {
+    var theTypes = new Array();
+    for (var i = 0; i < arr.length; i++) {
+        var theType = (typeof arr[i]);
+        if (theTypes.indexOf(theType) != -1) {
+            return false;
+        }
+        theTypes[theTypes.length] = theType;
+    }
+    return true;
+}
+//writeMessage("One of each type: " + oneOfEachType(["1", 1]));
+//writeMessage("One of each type: " + oneOfEachType([1, 1]));
+//writeMessage("One of each type: " + oneOfEachType(["1", 1, [1, 5]]));
+
+addFunction(getArraysFromImage);
+s.requiresTheFunctions = [get1DArrayFromFileName];
+function getArraysFromImage(imageFileName, borderColor) {
+
+}
+
+addFunction(getBinary);
+s.requiresTheFunctions = [convertBase, getFunctionInformation];
+
+function getBinary(decimalNum) {
+
+}
+
+addFunction(convertBase);
+s.requiresTheFunctions = [getFunctionInformation];
+s.description = "Convert theNumber from base1 to base2."
+
+function convertBase(convertFrom, convertTo, theNumber) {
+
+}
+
+addFunction(stalactite);
+s.requiresTheFunctions = [getRandomFromArray, getTheCoordinates];
+s.isDefined = false;
+function stalactite(array, air, stone, randomArray){
+	
+}
+
+myArray.prototype.setFileName = function(fileName){
+	
+}
+addFunction(myArray.prototype.setFileName);
+s.isDefined = false;
+
+addFunction(myArray);
+s.requiresTheFunctions = [getFunctionInformation];
+s.isDefined = false;
+s.description = "Find out how to set properties of the functions of this function's prototype.";
+
+function myArray(fileName){
+   this.height;
+   this.width;
+   this.fileName = fileName;
+   function getFileName(){
+	   //throw error if filename is undefined
+   }
+   function getHeight(){
+	   
+   }
+   function getWidth(){
+	   
+   }
+}
+
+var stuff2 = new myArray(1);
+console.log(stuff2.height);
+//stuff2.changeHeight(1);
+console.log(stuff2.height);
+
+// getTextFromFile(fileName)
+//Implement this function so that getFunctionInformation can be implemented
+// getLineArrayFromFile(filename)
+//Get the line (starting at 0) from the file with filename.
+
+addFunction(getCommentArrayFromFile);
+s.isDefined = true;
+s.description = "Get the array of relevant comments from the file."
+s.requiresTheFunctions = [getTextFromFile, getLineArrayFromFile];
+function getCommentArrayFromFile(filename){
+	var arr = getLineArrayFromFile(filename);
+	var arr2 = new Array();
+	for(var i = 0; i < arr.length; i++){
+		if(arr[i].indexOf("//function name:") == 0){
+			//console.log(arr[i]);
+			arr2[arr2.length] = arr[i];
+		}
+		if(arr[i].indexOf("//requires functions:") == 0){
+			//console.log(arr[i]);
+			arr2[arr2.length] = arr[i];
+		}
+		if(arr[i].indexOf("//is defined:") == 0){
+			//console.log(arr[i]);
+			arr2[arr2.length] = arr[i];
+		}
+	}
+	return arr2;
+}
+
+addFunction(get2DCommentArrayFromFile);
+s.isDefined = true;
+s.requiresTheFunctions = [getCommentArrayFromFile];
+s.description = "Use this to implement getFunctionInformation(filename). Get a 2D comment array, where each sub-array starts with //function name:";
+function get2DCommentArrayFromFile(filename){
+	var arr = getCommentArrayFromFile(filename);
+	arr[arr.length] = "//function name: teeheehee"
+	//find out how to split arrays
+	//use array.slice(start, end)
+	//the starting index is inclusive, but the ending index is not inclusive.
+	var newArr = new Array();
+	var startingIndex = 0;
+	var endingIndex = 0;
+	for(var i = 0; i < arr.length; i++){
+		if(arr[i].indexOf("//function name: ") == 0){
+			//create the array for the thing
+			startingIndex = endingIndex;
+			endingIndex = i;
+			//put into newArr
+			if(endingIndex != 0){
+				newArr[newArr.length] = arr.slice(startingIndex, endingIndex); //make sure that this works correctly
+				//console.log("Starting index: " + startingIndex + "\nEnding index:" + endingIndex);
+			}
+		}
+	}
+	//console.log(newArr);
+	return newArr;
+}
+
+addFunction(getFunctionNameList);
+s.description = "Get a list of functions from the file."
+s.requiresTheFunctions = [get2DCommentArrayFromFile];
+s.isDefined = true;
+function getFunctionNameList(fileName){
+	var commentArray = get2DCommentArrayFromFile(fileName);
+	var functionList = new Array();
+	console.log("\n\n");
+	for(var i = 0; i < commentArray.length; i++){
+		var str = commentArray[i][0];
+		///console.log(str);
+		functionList[i] = str.substring("//function name: ".length, str.length);
+		//console.log(functionList[i]);
+	}
+	//console.log("\n\n");
+	return functionList;
+}
+
+getFunctionNameList("stuff.js");
+
+addFunction(functionNamesAreUnique);
+s.description = "Determine whether the function names in the file are unique."
+s.requiresTheFunctions = [getFunctionNameList, removeDuplicates];
+s.isDefined = true;
+//The function  functionNamesAreUnique(fileName) can be implemented! 
+//Description: Determine whether the function names in the file are unique.
+ //It requires the functions:
+// getFunctionNameList(fileName)
+//Get a list of functions from the file.
+// removeDuplicates(origArr) 
+//Remove duplicate elements from the array.
+function functionNamesAreUnique(fileName){
+	var functionNameList = getFunctionNameList(fileName);
+	var withoutDuplicates = removeDuplicates(functionNameList);
+	if(functionNameList.length == withoutDuplicates.length){
+		return true;
+	}
+	else{
+		return false;
+	}
+}
+//console.log("Function names are unique: " + functionNamesAreUnique("stuff.js"));
+
+addFunction(getFunctions);
+s.requiresTheFunctions = [get2DCommentArrayFromFile, functionNamesAreUnique, getFunctionNameList];
+s.description = "Get an array of functions that corresponds to the comments in the file."
+function getFunctions(filename){
+    var arr = get2DCommentArrayFromFile(filename);
+	var currentFunction;
+	for(var i = 0; i < arr.length; i++){
+		for(var j = 0; j < arr[i].length; j++){
+			var current = arr[i][j];//refers to a comment string
+			console.log("Current: " + current)
+			if(current.indexOf("function name: ") != -1){
+				var functionName = current.substring("function name: ".length+2, current.length);
+				console.log(functionName);
+				//create a new function with the function name (this will automatically be accessible outside the for-loop)
+				eval("var " + functionName);
+				//set currentFunction to the newly created function
+				currentFunction = eval(functionName);
+			}
+			if(current.indexOf("requires the functions: ") != -1){
+				//set currentFunction.prototype.requiresTheFunctions to the list of functions
+				//use eval to convert the list to an array
+				//currentFunction.prototype.requiresTheFunctions = 
+			}
+			if(current.indexOf("is defined: ") != -1){
+				//set currentFunction.prototype.isDefined to the truth value here
+			}
+		}
+	}
+	//console.log("\n\n\n" + getFunctionInformation + "\n\n\n"); //this 
+	//use implementsTheInterface here
+	//create functions from the first element of each array
+	//example of putting something outside a for-loop from in the for-loop: http://jsfiddle.net/QBAEj/1/
+}
+//getFunctions("stuff.js");
+
+//function name: getFunctionInformation
+//requires functions: get2DCommentArrayFromFile
+addFunction(getFunctionInformation);
+s.description = "Get the function information (in the comments above each function) from the filename. Determine the functions that can be implemented. This should work with any programming language.";
+s.requiresTheFunctions = [getFunctions];
+function getFunctionInformation(filename){
+
+}
+
+//getFunctionInformation("stuff.js");
+
+//function name: generateFractalForOneIteration
+//requires functions: getArraysFromImage, oneOfEachType, getWrappingElement, isNextTo, enlarge2DArray, replaceArray, get1DArrayFromFileName, regexMatches2DArray, replaceElementIn2DArray, replaceRandom, getBinary, generatePNGImageFromColorNameArray, stalactite, myArray, getFunctionInformation
+//is defined: false
+addFunction(generateFractalForOneIteration);
+s.requiresTheFunctions = [getArraysFromImage, oneOfEachType, getWrappingElement, isNextTo, enlarge2DArray, replaceArray, get1DArrayFromFileName, regexMatches2DArray, replaceElementIn2DArray, replaceRandom, getBinary, generatePNGImageFromColorNameArray, stalactite, myArray, getFunctionInformation];
+s.description = "patternsToReplace is the list of pattern replacements to do after magnifying the array.";
+function generateFractalForOneIteration(startingArray, patternsToReplace) {
+
+}
+
+addFunction(generateFractal);
+s.requiresTheFunctions = [generateFractalForOneIteration]
+s.description = "patternsToReplace is the list of pattern replacements to do after magnifying the array.";
+
+function generateFractal(startingArray, numIterations, patternsToReplace) {
+
+}
+addFunction(generateQuadtree);
+s.requiresTheFunctions = [generateFractal, getBinary];
+s.isDefined = false;
+
+function generateQuadtree(startingArray, numIterations) {
+
+}
+
+addFunction(copyStringsBeforeSemicolons);
+s.requiresTheFunctions = [enlarge1DArray];
+s.isDefined = true;
+
+function copyStringsBeforeSemicolons(theString) {
+    var arr = theString.split(";");
+    var theString2 = (enlarge1DArray(arr)).toString();
+    return theString2;
+}
+//writeMessage(copyStringsBeforeSemicolons("Multiply matrices; the horizontal in the first; times the vertical in the second."));
+
+addFunction(getStrings);
+s.requiresTheFunctions = false;
+s.description = "Take a list of named arguments with parameters as input, and return the list of named arguments.";
+s.isDefined = true;
+
+function getStrings(input) {
+    var newArr = new Array();
+    for (var i = 0; i < input.length; i += 2) {
+        newArr[i / 2] = input[i];
+        //writeMessage("newArr");
+        if (typeof (input[i]) != "string") {
+            writeMessage("The named arguments must be strings!");
+            return false;
+        }
+    }
+    return newArr;
+}
+//writeMessage("getStrings: " + getStrings(["parm 1", 3, "parm 2", "hah", "parm 3"]));
+
+addFunction(getCorrespondingParameter);
+s.requiresTheFunctions = false;
+s.description = "Take an array of named args with parameters, and return the corresponding parameter for the argument name."
+s.isDefined = true;
+s.regexArray = [
+    [/(get|obtain|return) (|the )parameter for (|the )input/, /(|(corresponding to|for|with) (|the ))(word|string)/]
+];
+
+function getCorrespondingParameter(input, theString) {
+    for (var i = 0; i < input.length; i += 2) {
+        if (input[i] == theString) {
+            return input[i + 1];
+        }
+    }
+}
+
+addFunction(getRegexArraysMatchingInput);
+s.requiresTheFunctions = [stringsMatchRegexesInAnyOrder, getAllFunctions, getStrings, getCorrespondingParameter];
+s.description = "Take strings with named arguments as input. If there is only one regex array that matches the input, call the function with the corresponding regex array."
+s.isDefined = true;
+//stringsMatchRegexesInAnyOrder(strings, regexes): Return true if (every string matches one regex) and (every regex matches one string), otherwise return false.
+//getAllFunctions(): Get all the functions that exist.
+//getStrings(input): Take a list of named arguments with parameters as input, and return the list of named arguments.
+//getCorrespondingParameter(input, theString): Take an array of named args with parameters, and return the corresponding parameter for the argument name.
+function getRegexArraysMatchingInput(input) {
+	console.log("Input: " + input);
+    var theFunctions = getAllFunctions();
+    var regexArraysWithFunctions = new Array();
+    for (var i = 0; i < theFunctions.length; i++) {
+        var regexArrays = theFunctions[i].prototype.regexArray;
+        if (regexArrays != undefined) {
+            //writeMessage(regexArrays);
+            for (j = 0; j < regexArrays.length; j++) {
+                var theStrings = getStrings(input);
+                //writeMessage("input: " + input);
+                //writeMessage(theStrings);
+                for (var k = 0; k < regexArrays[j].length; k++) {
+                    if (typeof regexArrays[j][k] == "string") {
+                        regexArrays[j][k] = new RegExp(regexArrays[j][k]);
+                    }
+                }
+                if (stringsMatchRegexesInAnyOrder(theStrings, regexArrays[j])) {
+                    writeMessage("The strings match the regexes!");
+                    regexArraysWithFunctions[regexArraysWithFunctions.length] = [theFunctions[i], regexArrays[j]];
+                } else {
+                    //writeMessage("The strings " + theStrings + "do not match the regexes " + regexArrays[j]);
+                }
+            }
+        }
+    }
+    writeMessage(regexArraysWithFunctions);
+    if (regexArraysWithFunctions.length == 1) {
+        //writeMessage("The function can be called!");
+    }
+    return regexArraysWithFunctions;
+}
+//getRegexArraysMatchingInput(["get the parameter for the input", "ga", "string", "hee"]);
+
+addFunction(getRegexIndex);
+s.description = "Get the index of the first regex that matches the string."
+s.requiresTheFunctions = [stringMatchesRegex];
+s.isDefined = true;
+//stringMatchesRegex(str, regex): Return true if the string matches the regex; return false otherwise.
+function getRegexIndex(str, regexes) {
+    for (var i = 0; i < regexes.length; i++) {
+        if (stringMatchesRegex(str, regexes[i]) == true) {
+            return i;
+        }
+    }
+    return false;
+}
+
+addFunction(getStringsInOrderOfRegexes);
+s.description = "Put the strings in the order of the matching regexes"
+s.requiresTheFunctions = [stringsMatchRegexesInAnyOrder, getRegexIndex];
+s.isDefined = true;
+//stringsMatchRegexesInAnyOrder(strings, regexes): Return true if (every string matches one regex) and (every regex matches one string), otherwise return false.
+//getRegexIndex(str, regexes): Get the index of the first regex that matches the string.
+function getStringsInOrderOfRegexes(strings, regexes) {
+    if (stringsMatchRegexesInAnyOrder(strings, regexes)) {
+        var newArray = new Array();
+        for (var i = 0; i < strings.length; i++) {
+            var index = getRegexIndex(strings[i], regexes);
+            newArray[i] = strings[index];
+        }
+        return newArray;
+    } else {
+        writeMessage("Every string should correspond to one regex, and vice-versa!");
+        return false;
+    }
+}
+
+//writeMessage("Get strings in order of regexes: " + getStringsInOrderOfRegexes(["kah", "bah", "buh"], [/b(u|e)h/, /bah/, /kah/]));
+//f(["the string", "la", "matches the regex:", /la/])
+
+addFunction(callFunctionWithNamedArgs);
+s.description = "Pass an array as a parameter, alternating between the argument names and the arguments themselves. Function name does not need to be passed as a parameter."
+s.requiresTheFunctions = [getCorrespondingParameter, getRegexArraysMatchingInput, getStringsInOrderOfRegexes];
+s.isDefined = true;
+//getCorrespondingParameter(input, theString): Take an array of named args with parameters, and return the corresponding parameter for the argument name.
+//getRegexArraysMatchingInput(input): Take strings with named arguments as input. If there is only one regex array that matches the input, call the function with the corresponding regex array.
+//getStringsInOrderOfRegexes(strings, regexes): Put the strings in the order of the matching regexes
+function callFunctionWithNamedArgs(input) {
+    //writeMessage("input: " + input)
+    var stuff = getRegexArraysMatchingInput(input);
+    if (stuff.length == 1) {
+        //writeMessage("The function is about to be called!");
+        var functionToCall = stuff[0][0];
+        var namedArgsRegexes = stuff[0][1];
+
+        var stringsInOrderOfRegexes = getStringsInOrderOfRegexes(getStrings(input), namedArgsRegexes);
+        //writeMessage("Strings in order of regexes: " + stringsInOrderOfRegexes);
+
+        for (var i = 0; i < stringsInOrderOfRegexes.length; i++) {
+            stringsInOrderOfRegexes[i] = getCorrespondingParameter(input, stringsInOrderOfRegexes[i]);
+        }
+        //writeMessage("Strings in order of regexes: " + stringsInOrderOfRegexes);
+        return functionToCall.apply(null, stringsInOrderOfRegexes);
+    } else if (stuff.length == 0) {
+        writeMessage("There are no functions matching the input!");
+    } else if (stuff.length > 1) {
+        writeMessage("More than one function matches the input!");
+    }
+}
+
+addFunction(f);
+s.isDefined = true;
+s.requiresTheFunctions = [callFunctionWithNamedArgs];
+
+function f(input) {
+    return callFunctionWithNamedArgs(input);
+}
+
+addFunction(getAllImplementedFunctions);
+s.requiresTheFunctions = [getAllFunctions];
+s.isDefined = true;
+s.description = "Get an array of function names, represented as strings.";
+
+function getAllImplementedFunctions() {
+    var arr = getAllFunctions();
+    var newArr = new Array();
+    for (var i = 0; i < arr.length; i++) {
+        if (typeof (arr[i].prototype) != 'undefined') {
+            //writeMessage("It's not defined!");
+            if ((typeof (arr[i].prototype.isDefined)) != 'undefined') {
+                if (arr[i].prototype.isDefined == true) {
+                    newArr[newArr.length] = getFunctionName(arr[i]);
+                }
+            }
+            //else{
+            //	writeMessage();
+            //}
+        }
+    }
+    return newArr;
+}
+
+addFunction(checkFunctionNames);
+s.requiresTheFunctions = [getAllFunctions];
+
+function checkFunctionNames() {
+
+}
+
+addFunction(getMethods);
+s.isDefined = true;
+s.requiresTheFunctions = false;
+s.description = "Return all of the function's instance methods."
+
+function getMethods(obj) {
+    var result = [];
+    for (var id in obj) {
+        try {
+            if (typeof (obj[id]) == "function") {
+                result.push(id + ": " + obj[id].toString());
+            }
+        } catch (err) {
+            result.push(id + ": inaccessible");
+        }
+    }
+    return result;
+}
+
+addFunction(getArraysFromImage);
+s.requiresTheFunctions = [getFunctionInformation];
+function getArraysFromImage(filename){
+	
+}
+
+addFunction(arrayContains);
+s.requiresTheFunctions = false;
+s.isDefined = true;
+s.description = "Determine whether the first array contains the second array."
+function arrayContains(containingArray, containedArray) {
+    for (var i = 0; i < containingArray.length; i++) {
+        if (containingArray[i] == containedArray){
+            return true;
+        }
+    }
+    return false;
+}
+var blah = "";
+//console.log("\n\n\n\narray contains:\n\n\n\n" +  arrayContains([3, 5], 4));
+//writeMessage(getMethods(blah));
+
+addFunction(getImplementableFunctions);
+s.requiresTheFunctions = [getAllImplementedFunctions, getAllFunctions, arrayContains];
+
+function getImplementableFunctions() {
+    var allFunctions = getAllFunctions();
+    for (var i = 0; i < getAllFunctions.length; i++) {
+        for (var j = 0; j < getAllImplementedFunctions.length; j++) {
+
+        }
+    }
+}
+
+//s.requiresTheFunctions = 
+//function seeAlso(theFunction){
+//	s.seeAlso = 
+//}
+
+addFunction(hasParameterTypes);
+s.requiresTheFunctions = false;
+s.isDefined = false;
+s.description = "Return true if the function has the parameter types, else return false."
+
+function hasParameterTypes(theFunction, parameterTypes) {
+    //var theParameterTypes = theFunction.prototype.
+}
+
+addFunction(getAllFunctionsWithParameterTypes);
+s.requiresTheFunctions = [getAllFunctions, hasParameterTypes];
+s.description = "The input array should be the list of parameter types.";
+
+function getAllFunctionsWithParameterTypes(arr) {
+
+}
+
+addFunction(checkAllFunctions);
+s.requiresTheFunctions = [getAllFunctionsWithParameterTypes, getAllFunctions, getAllImplementedFunctions, checkFunctionNames, getImplementableFunctions];
+
+function checkAllFunctions() {
+
+}
+
+addFunction(generateIlluminatedManuscript);
+s.requiresTheFunctions = [generateFractal, generateRandomString];
+
+function generateIlluminatedManuscript() {
+
+}
+
+addFunction(arrayOfFractals);
+s.requiresTheFunctions = [generateFractal];
+
+function arrayOfFractals(startingArray, numIterations) {
+
+}
+
+addFunction(generateFractalFrame);
+s.requiresTheFunctions = [arrayOfFractals];
+
+function generateFractalFrame(arrayOfFractals, startingAtIndex) {
+
+}
+
+addFunction(generateFractalAnimation);
+s.requiresTheFunctions = [generateFractalFrame, arrayOfFractals];
+
+function generateFractalAnimation(startingArray, numberOfFrames, numberOfIterations) {
+
+}
+
+addFunction(functionSignature);
+s.requiresTheFunctions = false;
+s.isDefined = true;
+
+function functionSignature(theFunction) {
+    var str = theFunction.toString();
+    return str.substring(str.indexOf(" "), str.indexOf("{"));
+    //return "blah";
+}
+
+addFunction(printFunctionInfo);
+s.isDefined = true;
+s.requiresTheFunctions = [getFunctionName, functionSignature];
+
+function printFunctionInfo(theFunction) {
+    return functionSignature(theFunction);
+}
+
+addFunction(getFunctionLink);
+s.isDefined = true;
+s.requiresTheFunctions = false;
+s.description = "Get the function's method signature."
+
+function getFunctionLink(theFunction) {
+    return getVar("getMethodSignature")(theFunction);
+}
+
+addFunction(getFunctionLinks);
+s.isDefined = true;
+s.requiresTheFunctions = [getFunctionLink];
+
+function getFunctionLinks(functions) {
+    if (functions == false) {
+        return false;
+    }
+    var str;
+    for (var i = 0; i < functions.length; i++) {
+        str += getFunctionLink(functions[i]) + ", ";
+    }
+    return str;
+}
+
+addFunction(getRequiringFunctions);
+s.isDefined = false;
+s.requiresTheFunctions = [getAllFunctions, functionNameIsValid];
+
+function getRequiringFunctions(theFunction) {
+    var str = "";
+    var arr = getAllFunctions();
+    var newArr = new Array();
+    for (var i = 0; i < arr.length; i++) {
+        //if(arr[i].prototype.requiresTheFunctions != false){
+        //for(var j = 0; j < arr[i].prototype.requiresTheFunctions.length; j++){
+        //if(arr[i].prototype.requiresTheFunctions[j] == theFunction){
+        //str += getFunctionLink(theFunction);
+        //}
+        //}
+        //}
+
+        var requiresTheFunctions = eval(arr[i]).prototype.requiresTheFunctions;
+        //str += requiresTheFunctions;
+
+        if (requiresTheFunctions != undefined) {
+            if ((typeof requiresTheFunctions.length) != undefined) {
+                for (var j = 0; j < requiresTheFunctions.length; j++) {
+                    if (requiresTheFunctions[j] == theFunction) {
+                        str += getFunctionLink(arr[i]) + ", ";
+                    }
+                }
+            }
+        }
+
+        //str += getFunctionLink(arr[i])+", ";
+    }
+    return str;
+}
+
+addFunction(replaceWithFunctionInfo);
+s.isDefined = false;
+s.requiresTheFunctions = [getFunctionLink, getFunctionLinks, getRequiringFunctions];
+
+function replaceWithFunctionInfo(theFunction) {
+    document.body.innerHTML = getFunctionLink(theFunction);
+    document.body.innerHTML += "<br />Is defined: " + theFunction.prototype.isDefined;
+    document.body.innerHTML += "<br />Requires the functions: " + getFunctionLinks(theFunction.prototype.requiresTheFunctions);
+    document.body.innerHTML += "<br />Is required by the functions: " + getRequiringFunctions(theFunction);
+    document.body.innerHTML += "<br />" + theFunction.toString();
+}
+
+addFunction(getLine);
+s.requiresTheFunctions = [getNames, get1DArrayFromString, getArrayFromString];
+s.description = "Return the string in Names that corresponds to the line number."
+s.isDefined = true;
+
+function getLine(theString, num) {
+
+}
+
+addFunction(getPhones);
+s.description = "Return the string that corresponds to the phones file."
+s.requiresTheFunctions = false;
+s.isDefined = true;
+
+function getPhones() {
+
+}
+
+addFunction(getNames);
+s.requiresTheFunctions = false;
+s.description = "Return the string that corresponds to the names file."
+s.isDefined = true;
+
+function getNames() {
+
+}
+
+addFunction(getAddresses);
+s.requiresTheFunctions = false;
+s.isDefined = true;
+s.description = "Return the string that corresponds to the addresses file."
+
+function getAddresses() {
+
+}
+
+addFunction(getNamesArray);
+s.requiresTheFunctions = [getArrayFromString, getNames];
+s.isDefined = true;
+s.description = "Get a 2-dimensional array that corresponds to the names file."
+
+function getNamesArray() {
+
+}
+
+addFunction(getPhonesArray);
+s.isDefined = true;
+s.description = "Get the 2-dimensional array that corresponds to phones.";
+s.requiresTheFunctions = [getArrayFromString, getPhones];
+
+function getPhonesArray() {
+
+}
+
+addFunction(getAddressesArray);
+s.isDefined = true;
+s.description = "Get a 2-dimensional array that corresponds to the addresses file."
+s.requiresTheFunctions = [getArrayFromString, getAddresses];
+
+function getAddressesArray() {
+
+}
+
+addFunction(get1DArrayFromString);
+s.requiresTheFunctions = [getNames, getPhones, getAddresses];
+s.isDefined = true;
+s.description = "Return a 1-dimensional array that corresponds to the string, split by newline characters."
+
+function get1DArrayFromString(theString) {
+
+}
+
+addFunction(getArrayFromString);
+s.isDefined = true;
+s.requiresTheFunctions = [get1DArrayFromString];
+s.description = "Get a 2-dimensional array that corresponds to the string from the (names|phones|addresses) file."
+
+function getArrayFromString(theString) {
+
+}
+
+addFunction(generatePNGImageFrom1DArray);
+s.requiresTheFunctions = false;
+s.isDefined = true;
+s.description = "Generate a png image from a 1D array. The array should be a simple array of integers, with repeating RGB (no alpha) values."
+function generatePNGImageFrom1DArray(HEIGHT, WIDTH, array, imageName){
+var fs  = require('fs');
+var sys = require('sys');
+var Png = require('png').Png;
+var Buffer = require('buffer').Buffer;
+
+var rgb = new Buffer(WIDTH*HEIGHT*3);
+
+for (var i=0; i<HEIGHT; i++) {
+    for (var j=0; j<WIDTH; j++) {
+        rgb[i*WIDTH*3 + j*3 + 0] = array[i*WIDTH*3 + j*3 + 0];
+        rgb[i*WIDTH*3 + j*3 + 1] = array[i*WIDTH*3 + j*3 + 1];
+        rgb[i*WIDTH*3 + j*3 + 2] = array[i*WIDTH*3 + j*3 + 2];
+    }
+}
+
+var png = new Png(rgb, WIDTH, HEIGHT, 'rgb');
+
+fs.writeFileSync(imageName, png.encodeSync().toString('binary'), 'binary');	
+}
+//generatePNGImageFrom1DArray(2, 2, [255, 255, 255, 255, 255, 255, 255, 255, 255, 0, 0, 255], './png-gradientBlue.png');
+
+addFunction(get1DArrayFrom2DArray);
+s.requiresTheFunctions = false;
+s.description = "Convert a 2D array to a 1D array."
+s.isDefined = true;
+function get1DArrayFrom2DArray(array){
+	var newArr = new Array();
+	for(var i = 0; i < array.length; i++){
+		for(var j = 0; j < array[i].length; j++){
+			newArr[newArr.length] = array[i][j];
+		}
+	}
+	return newArr;
+}
+
+addFunction(get1DArrayFrom3DArray);
+s.requiresTheFunctions = [get1DArrayFrom2DArray];
+s.description = "Convert a 2D array to a 1D array."
+s.isDefined = true;
+function get1DArrayFrom3DArray(array){
+	array = get1DArrayFrom2DArray(array);
+	array = get1DArrayFrom2DArray(array);
+	return array;
+}
+
+//console.log(get1DArrayFrom3DArray([[[255, 255, 255], [255, 255, 255]], [[0, 0, 0], [0, 0, 0]]]));
+
+addFunction(generatePNGImageFrom3DArray);
+s.isDefined = true;
+s.requiresTheFunctions = [generatePNGImageFrom1DArray, get1DArrayFrom3DArray];
+s.description = "array is a 3D array of integers that represent the rgb values. The file name starts with \"./\" ";
+//The function  generatePNGImageFrom2DArray(array, filename)can be implemented! 
+//Description: undefined
+ //It requires the functions:
+// generatePNGImageFrom1DArray(WIDTH, HEIGHT, array, imageName)
+//Generate a png image from a 1D array. The array should be a simple array of integers, with repeating RGB (no alpha) values.
+function generatePNGImageFrom3DArray(array, filename){
+	var HEIGHT = array.length;
+	var WIDTH = array[0].length;
+	array = get1DArrayFrom3DArray(array);
+	generatePNGImageFrom1DArray(HEIGHT, WIDTH, array, filename);
+}
+
+//generatePNGImageFrom3DArray([[[0, 0, 0], [0, 0, 0]], [[255, 255, 255], [255, 255, 255]]], "./stuff2.png");
+
+addFunction(generatePNGImageFromColorNameArray);
+s.requiresTheFunctions = [generatePNGImageFrom3DArray, get3DRGBArray];
+s.isDefined = true;
+//The function  generatePNGImageFromColorNameArray(array, filename)can be implemented! 
+//Description: undefined
+ //It requires the functions:
+// generatePNGImageFrom3DArray(array, filename)
+//array is a 3D array of integers that represent the rgb values. The file name starts with "./" 
+// get3DRGBArray(colorNameArray)
+//Get a 3d rgb array from a 2d color name array.
+function generatePNGImageFromColorNameArray(array, filename){
+	array = get3DRGBArray(array);
+	generatePNGImageFrom3DArray(array, filename);
+}
+var arr = [["red", "pink", "red"], ["blue", "black", "blue"]];
+arr = enlarge2DArray(arr);
+arr = enlarge2DArray(arr);
+//generatePNGImageFromColorNameArray(arr, "./testImage.png");
+
+//console.log(get3DRGBArray([["red", "pink", "red"], ["blue", "black", "blue"]]));
+
+addFunction(get3DRGBArray);
+s.requiresTheFunctions = [getRGBArray];
+s.description = "Get a 3d rgb array from a 2d color name array.";
+s.isDefined = true;
+function get3DRGBArray(colorNameArray){
+	var arr = colorNameArray;
+	for(var i = 0; i < arr.length; i++){
+		for(var j = 0; j < arr[i].length; j++){
+			//console.log(arr[i][j]);
+			arr[i][j] = getRGBArray(arr[i][j]);
+			//arr[i][j] = getRGBArray("red");
+			//arr[i][j] = [255, 0, 0];
+		}
+	}
+	return arr;
+}
+//console.log(get3DRGBArray([["red", "red"], ["red", "red"]]));
+
+addFunction(getBlockArray);
+s.requiresTheFunctions = false;
+s.isDefined = true;
+function getBlockArray(){
+	return [["red", /(r|R)ed/, [255, 0, 0]],
+	["green", /(g|G)reen/, [0, 255, 0]],
+	["blue", /(B|b)lue/, [0, 0, 255]],
+	["pink", /(p|P)ink/, [255, 0, 255]],
+	["black", /((B|b)lack)/, [0, 0, 0]],
+	["white", /(W|w)hite/, [255, 255, 255]]
+	];
+}
+
+addFunction(getRGBArray);
+s.description = "Get the RGB array that corresponds to the color name, located in BlockArray.";
+s.isDefined = true;
+s.requiresTheFunctions = [stringMatchesRegex];
+//The function  getRGBArray(colorName)can be implemented! 
+//Description: Get the RGB array that corresponds to the color name, located in BlockArray.
+//It requires the functions:
+// stringMatchesRegex(str, regex) 
+//Return true if the string matches the regex; return false otherwise.
+function getRGBArray(colorName){
+	var blockArray = getBlockArray();
+	for(var i = 0; i < blockArray.length; i++){
+		var regex = blockArray[i][1];
+		if(stringMatchesRegex(colorName, regex)){
+			return blockArray[i][2];
+		}
+	}
+}
+
+//console.log(getRGBArray("red"));
+
+addFunction(getAddressesByFirstName);
+s.isDefined = true;
+s.description = "Get the 1-dimensional address array in the addresses file that corresponds to the first name."
+s.requiresTheFunctions = [getAddresses, getAddressesArray, getNamesArrayByFirstName, printAddressesInfo, printPhonesInfo, printNamesInfo];
+
+function getAddressesByFirstName(firstName) {
+
+}
+
+addFunction(getPhonesByFirstName);
+s.isDefined = true;
+s.description = "Get the 1-dimensional address array in the phones file that corresponds to the first name."
+s.requiresTheFunctions = [getPhones, getPhonesArray, getNamesArrayByFirstName, printNamesInfo, printPhonesInfo, printAddressesInfo];
+
+function getPhonesByFirstName(firstName) {
+
+}
+
+addFunction(getNamesArrayByFirstName);
+s.description = "Get the 1-dimensional array that corresponds to the first name."
+s.requiresTheFunctions = getNamesArray;
+s.isDefined = true;
+
+function getNamesArrayByFirstName(firstName) {
+
+}
+
+addFunction(printPhonesInfo);
+s.requiresTheFunctions = [getPhonesArray];
+s.description = "Return the phones as a properly formatted string, in legible format.";
+s.isDefined = true;
+
+function printPhonesInfo(array) {
+
+}
+
+addFunction(printNamesInfo);
+s.requiresTheFunctions = [getNamesArray];
+s.description = "Return the names as a properly formatted string, in legible format.";
+s.isDefined = true;
+
+function printNamesInfo(array) {}
+
+addFunction(printAddressesInfo);
+s.requiresTheFunctions = [getAddressesArray];
+s.description = "Return the addresses as a properly formatted string, in legible format.";
+s.isDefined = true;
+
+function printAddressesInfo(array) {
+
+}
+
+addFunction(getInfoByFirstName);
+s.isDefined = true;
+s.requiresTheFunctions = [printNamesInfo, printAddressesInfo, printPhonesInfo, getNamesArrayByFirstName, getPhonesArray, getAddressesArray, getLine, getAddressesByFirstName, getPhonesByFirstName];
+s.description = "Get the line in names that corresponds to the last name.";
+
+function getInfoByFirstName(firstName) {
+
+}
+
+addFunction(getFirstName);
+s.requiresTheFunctions = [getNamesArray];
+s.isDefined = true;
+s.description = "Get the first name that corresponds to the last name.";
+s.isDefined = true;
+
+function getFirstName(lastName) {
+
+}
+
+addFunction(getInfoByLastName);
+s.requiresTheFunctions = [getFirstName, getInfoByFirstName];
+s.description = "Get the line number in names that corresponds to the first name.";
+s.isDefined = true;
+
+function getInfoByLastName(lastName) {
+    //getInfoByFirstName(getFirstName(lastName));
+}
+
+addFunction(readingTestData);
+s.isDefined = true;
+s.requiresTheFunctions = [getInfoByLastName, getInfoByFirstName];
+
+addFunction(getPrefixString);
+s.requiresTheFunctions = false;
+function getPrefixString(prefix, parameterNames){
+	
+}
+
+addFunction(getArgumentList);
+s.requiresTheFunctions = [getPrefixString];
+function getArgumentList(sourceLanguage, parameterNames){
+	if(sourceLanguage == ".js"){ //same for .js, .rb, .py
+		
+	}
+	else if(sourceLanguage == ".cpp"){
+		
+	}
+	else if(sourceLanguage == ".java"){
+		
+	}
+}
+
+addFunction(getMethodSignature);
+s.requiresTheFunctions = [getArgumentList];
+function getMethodSignature(sourceLanguage, parameterNames){
+	
+}
+
+addFunction(getMethod);
+s.description = "Generate a method in the source language for calling a method in the target language.";
+s.requiresTheFunctions = [getMethodSignature];
+function getMethod(methodName, parameterNames, sourceLanguage, targetLanguage){
+	
+}
+
+function readingTestData(names, phones, addresses) {
+    //names, phones, and addresses should be strings
+}
+
+
+//implementsTheInterface(getAllDefinedFunctions);
+//implementsTheInterface(doStuff);
+//implementsTheInterface(stringMatchesRegex);
+//implementsTheInterface(stringsMatchRegex);
+//implementsTheInterface(regexesMatchString);
+//implementsTheInterface(getDimension);
+//implementsTheInterface(getFunctionName);
+//implementsTheInterface(getAllFunctionsWithTheTypes);
+//implementsTheInterface(implementsTheInterface);
+
+//writeMessage("\n All named arguments:" + printAllNamedArguments());
+//writeMessage("\n\nUsable functions (these are clickable):\n");
+
+//var implementedFunctions = getAllImplementedFunctions();
+
+//for(var i = 0; i < implementedFunctions.length; i++){
+//	writeMessage(printFunctionInfo(eval(implementedFunctions[i])));
+//}
+//implementsTheInterface(getVar("getAllMethods")());
+
+addFunction(execute);
+var exec = require('child_process').exec;
+function execute(command, callback){
+    exec(command, function(error, stdout, stderr){ callback(stdout); });
+};
+
+
+var theResult = new Object();
+function getCommandOutput(theCommand, callback1){
+		//theResult should be an object - objects are passed by reference
+		exec(theCommand, function(error, stdout, stderr){
+			theResult = stdout; //this doesn't work unless theResult is defined in the global scope.
+			//console.log(theResult);
+			callback1();
+		});
+}
+
+//search for "call asynchronous functions synchronously"
+//Objects are passed by reference in Javascript.
+function main(){
+	console.log("Calling main() method.");
+	console.log("Number of command-line arguments:" + process.argv.length)
+	console.log("The command-line arguments are: " + process.argv);
+	
+	if(process.argv.length > 2){
+		var theString = process.argv[2] + " ";
+		console.log("The function " + process.argv[2] + " should be evaluated with its command-line arguments.");
+		for(var i = 3; i < process.argv.length; i++){
+			console.log(process.argv[i]);
+			theString += process.argv[i];
+			if(i != (process.argv.length - 1)){
+				theString += " "
+			}
+		}
+		console.log(theString);
+		console.log(eval(theString));
+	}
+	else{
+		var async = require("async");
+	//var theResult = new Object();
+	//var theResult = new Object();
+	async.series([
+		function(callback){
+			console.log("Print some stuff.");
+			gug = "Shhsh!"
+			callback();
+		},
+		function(callback){
+			console.log(gug);
+			console.log("Print more stuff");
+			console.log("Get list of function calls in a script:");
+			console.log("http://stackoverflow.com/questions/10182387/any-tools-to-draw-call-graphs-for-given-javascript");
+			//get line number of each function call in script
+			//how can I get args?
+				//the arguments are in process.argv
+			
+			//use function execute(command, callback)
+			//implementsTheInterface(generateFractalForOneIteration);
+			//implementsTheInterface(getMethod);
+			callback();
+		},
+		function(callback){
+			getCommandOutput("ls", callback);
+		},
+		function(callback){
+			console.log(theResult);
+			console.log("End of main method.");
+		}
+	]);
+	}
+}
+main();
+
+//implementsTheInterface(generateQuadtree);
+//implementsTheInterface(getAllFunctions);
+//implementsTheInterface(generateFractalAnimation);
+//implementsTheInterface(generateIlluminatedManuscript);
+//implementsTheInterface(checkAllFunctions);
+//implementsTheInterface(copyStringsBeforeSemicolons);
+//implementsTheInterface(generateFractal);
+//implementsTheInterface(callFunctionWithNamedArgs);
+//implementsTheInterface(generateRandomString);
+//implementsTheInterface(canBeImplemented);
+
+var output = "";
+
+function writeToOutput(theString) {
+    writeMessage(theString);
+    output += (theString).toString();
+}
+
+addFunction(implementsTheInterface);
+s.isDefined = true;
+s.returnType = "boolean";
+s.description = "Require a function to implement the interface and print an error message if one of the conditions is not met."
+s.parameterTypes = "function";
+s.requiresFunctionsMatchingStrings = [
+    ["The number of parameters matches the number of return types for the function:"],
+    ["Get all the unimplemented functions required by this function:"]
+];
+
+var hasBeenChecked = new Array();
+
+var implementableFunctions = "";
+function implementsTheInterface(theFunction, writeStuff) {
+    //writeMessage(typeof theFunction);
+    if (typeof theFunction != "function") {
+        for (var i = 0; i < theFunction.length; i++) {
+            implementsTheInterface(eval(theFunction[i]));
+        }
+        return false;
+    }
+
+    if (hasBeenChecked == undefined) {
+        hasBeenChecked = new Array();
+    }
+    for (var i = 0; i < hasBeenChecked.length; i++) {
+        if (hasBeenChecked[i] == theFunction) {
+            //writeMessage("<font color = blue>The function " + getFunctionLink(theFunction) + " has already been checked!</font><br />");
+            return 0;
+        }
+    }
+    hasBeenChecked[hasBeenChecked.length] = theFunction;
+    var functionName = getFunctionName(theFunction);
+    //writeMessage("Checking the function " + getFunctionLink(theFunction) + "<br />");
+
+	function writeAMessage(text){
+		if(writeStuff == true){
+			writeMessage(text);
+		}
+	}
+
+    if (canBeImplemented(theFunction)) {
+        var aMessage = "\n\n//The function " + getFunctionLink(theFunction) + " can be implemented! \n//Description: " + theFunction.prototype.description + "\n //It requires the functions:";
+        for (var i = 0; i < theFunction.prototype.requiresTheFunctions.length; i++) {
+			var currentFunction = theFunction.prototype.requiresTheFunctions[i];
+            aMessage += ("\n//" + functionSignature(currentFunction) + "\n//" + currentFunction.prototype.description);
+            //function getFunctionSignature(){
+            //	var str = theFunction.prototype.requiresTheFunctions[i].toString();
+            //	return str.substring(str.indexOf(" "), str.indexOf("{"))+ ": " + theFunction.prototype.requiresTheFunctions[i].prototype.description;
+            //}
+        }
+        writeMessage(aMessage);
+    }
+    //(t>>(18-t%4))*((t+t*(5))>>10|t­)﻿
+
+    else {
+        writeAMessage("\nThe function " + getFunctionLink(theFunction) + "cannot be implemented!");
+    }
+
+    if (theFunction == undefined) {
+        writeAMessage("The function is undefined!");
+    }
+
+    if (theFunction.prototype.isDefined == undefined) {
+        //writeMessage(getFunctionLink(theFunction)+".prototype.isDefined is undefined! Please give it a value! <br/>");
+    } else {
+        //writeMessage("The value of the doStuff.prototype.isDefined is " + doStuff.prototype.isDefined);
+    }
+
+    var reqFun = theFunction.prototype.requiresTheFunctions;
+    //writeMessage("reqfun.length is " + reqFun.length);
+
+    if (reqFun == undefined) {
+        writeAMessage(getFunctionLink(theFunction)+".prototype.requiresTheFunctions is undefined! Please give it a value!");
+    } else if (reqFun == false) {
+        //writeMessage("The function " + getFunctionLink(theFunction) + " does not require any functions. <br />");	
+    } else {
+        //writeMessage("The required functions for "+getFunctionLink(theFunction)+" are defined. <br />");
+        //writeMessage("The value of the doStuff.prototype.requiresTheFunctions is " + doStuff.prototype.requiresTheFunctions);
+        for (var i = 0; i < reqFun.length; i++) {
+            //writeMessage("Checking to see if the function " + getFunctionLink(reqFun[i]) + " is implemented.<br />");
+            implementsTheInterface(reqFun[i]);
+        }
+    }
+
+    if (theFunction.prototype.parameterTypes == undefined) {
+        //writeMessage(getFunctionLink(theFunction)+".prototype.parameterTypes is undefined! Please give it a value! <br/>");
+    } else {
+        //writeMessage("The value of the doStuff.prototype.parameterTypes is " + doStuff.prototype.requiresTheFunctions);
+    }
+
+    if (theFunction.prototype.returnType == undefined) {
+        //writeMessage(getFunctionLink(theFunction)+".prototype.returnType is undefined! Please give it a value! <br/>");
+    } else {
+        //writeMessage("The value of the doStuff.prototype.parameterTypes is " + doStuff.prototype.requiresTheFunctions);
+    }
+
+    if (theFunction.prototype.regexArray == undefined) {
+        //writeMessage(getFunctionLink(theFunction)+".prototype.regexArray is undefined! Please give it a value! <br/>");
+    } else {
+        //writeMessage("The value of the doStuff.prototype.parameterTypes is " + doStuff.prototype.requiresTheFunctions);
+    }
+
+    if (theFunction.prototype.description == undefined) {
+        //writeMessage(getFunctionLink(theFunction)+".prototype.description is undefined! Please give it a value! <br/>");
+    } else {
+        //writeMessage("The value of the doStuff.prototype.parameterTypes is " + doStuff.prototype.requiresTheFunctions);
+    }
+
+    if (theFunction.prototype.exampleRegexMatches == undefined) {
+        //writeMessage(getFunctionLink(theFunction)+".prototype.exampleRegexMatches is undefined! Please give it a value! <br/>");
+    }
+
+    if (theFunction.prototype.requiresFunctionsMatchingStrings == undefined) {
+        //writeMessage(getFunctionLink(theFunction)+".prototype.requiresFunctionsMatchingStrings is undefined! Please give it a value! <br/>");
+    } else {
+        //writeMessage("The value of the doStuff.prototype.parameterTypes is " + doStuff.prototype.requiresTheFunctions);
+        if (theFunction.prototype.regexArray != undefined) {
+            writeAMessage("The regex and regex array are both implemented for this function: " + getFunctionLink(theFunction) + "<br/>");
+            writeAMessage("Check to see whether the regexes match the strings. Use an external function. <br />");
+            //use regexesMatchStringsInSameOrder
+        }
+    }
+
+    if (theFunction.prototype.functionNameRegexes == undefined) {
+        //writeMessage(getFunctionLink(theFunction)+".prototype.functionNameRegexes is undefined! Please give it a value! <br/>");
+    }
+    //console.log("Implementable functions:\n\n\n\n\n\n\n\n\n\n\n\n" + implementableFunctions);
+}
+
+//generateFile("functions.txt", output);

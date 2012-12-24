@@ -1,0 +1,11 @@
+<script type = "text/javascript">
+	setInterval("doStuff()", 500);
+	function doStuff(){
+		document.body.innerHTML = getRandomStringFromNestedParentheses(randomlyChangingColors("This ") + randomlyChangingColors("is") + randomlyChangingColors("crazy!"));
+	}
+	
+	function randomlyChangingColors(word){
+		return "<font size = '(10)' color = \"(red|green|blue)\">" + word + "</font><img src = '(http://www.mom2momkc.com/images/fb_icon.png|http://lasallemedicalcentre.com/wp-content/uploads/2010/07/google-chrome-logo.png)'></img>";
+	}
+</script>
+<script src = "/home/anderson/Desktop/AeroFS/nodejs_examples/javatest/stuff.js"></script>
